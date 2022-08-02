@@ -1,3 +1,4 @@
+import 'package:chatz/widgets/carousel.dart';
 import 'package:flutter/material.dart';
 
 class LandingCarousel extends StatefulWidget {
@@ -20,7 +21,7 @@ class _LandingCarouselState extends State<LandingCarousel> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.55,
+      height: MediaQuery.of(context).size.height * 0.60,
       child: Stack(children: [
         Positioned(
           top: 30,
@@ -57,42 +58,7 @@ class _LandingCarouselState extends State<LandingCarousel> {
               borderRadius: BorderRadius.circular(22),
               color: Colors.white,
             ),
-            child: PageView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: images.length,
-                itemBuilder: (_, index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 240,
-                        height: double.maxFinite,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(images[index]),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: List.generate(
-                          3,
-                          (indexDots) => Container(
-                            width: 8,
-                            margin: const EdgeInsets.only(bottom: 2),
-                            height: index == indexDots ? 27 : 12,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: index == indexDots
-                                  ? const Color(0xff7fac91)
-                                  : const Color(0xff9FD7B6),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }),
+            child: Carousel(images: images),
           ),
         ),
       ]),

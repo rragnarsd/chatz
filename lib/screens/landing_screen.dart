@@ -2,8 +2,8 @@ import 'package:chatz/widgets/landing_carousel.dart';
 import 'package:chatz/widgets/elevated_btn.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,13 @@ class LoginScreen extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * 0.25,
               decoration: const BoxDecoration(
-                  color: Color(0xff9FD7B6),
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black,
-                    ),
-                  )),
+                color: Color(0xff9FD7B6),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ),
             Column(children: const [
               SizedBox(height: 20),
