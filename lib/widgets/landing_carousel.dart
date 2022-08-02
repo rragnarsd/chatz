@@ -58,18 +58,39 @@ class _LandingCarouselState extends State<LandingCarousel> {
               color: Colors.white,
             ),
             child: PageView.builder(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 itemCount: images.length,
                 itemBuilder: (_, index) {
-                  return Container(
-                    width: double.maxFinite,
-                    height: double.maxFinite,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(images[index]),
-                        fit: BoxFit.cover,
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 240,
+                        height: double.maxFinite,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(images[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      Column(
+                        children: List.generate(
+                          3,
+                          (indexDots) => Container(
+                            width: 8,
+                            margin: const EdgeInsets.only(bottom: 2),
+                            height: index == indexDots ? 27 : 12,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: index == indexDots
+                                  ? const Color(0xff7fac91)
+                                  : const Color(0xff9FD7B6),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   );
                 }),
           ),
