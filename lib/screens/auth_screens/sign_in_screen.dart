@@ -1,4 +1,6 @@
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
+import 'package:chatz/screens/home_screen/home_screen.dart';
+
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +38,13 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
             if (!isKeyboardVisible)
-              const SignUpBottomBar(
+              AuthBottomBar(
                 mainText: 'I\'m ready',
                 subText: '...and real',
+                onTapped: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen())),
               )
           ]),
         ),

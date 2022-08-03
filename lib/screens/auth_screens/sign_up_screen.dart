@@ -1,3 +1,4 @@
+import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/screens/auth_screens/widgets/avatar_row.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
@@ -41,9 +42,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             if (!isKeyboardVisible)
-              const SignUpBottomBar(
+              AuthBottomBar(
                 mainText: 'Save and Continue',
                 subText: 'Your data must be real',
+                onTapped: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen())),
               )
           ]),
         ),

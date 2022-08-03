@@ -1,7 +1,7 @@
 import 'package:chatz/screens/auth_screens/sign_in_screen.dart';
 import 'package:chatz/screens/auth_screens/sign_up_screen.dart';
-import 'package:chatz/screens/widgets/landing_carousel.dart';
-import 'package:chatz/screens/widgets/elevated_btn.dart';
+import 'package:chatz/screens/landing_screen/widgets/elevated_btn.dart';
+import 'package:chatz/screens/landing_screen/widgets/landing_carousel.dart';
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatelessWidget {

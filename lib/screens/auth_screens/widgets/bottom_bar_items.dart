@@ -6,10 +6,12 @@ class BottomBarItems extends StatelessWidget {
     Key? key,
     required this.mainText,
     required this.subText,
+    required this.onTapped,
   }) : super(key: key);
 
   final String mainText;
   final String subText;
+  final Function onTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class BottomBarItems extends StatelessWidget {
           btnColor: const Color(0xff5EBDE6),
           iconColor: Colors.white,
           icon: Icons.arrow_forward,
-          onTapped: () {},
+          onTapped: () => onTapped(),
         ),
       ]),
     );
