@@ -1,3 +1,5 @@
+import 'package:chatz/screens/sign_in_screen.dart';
+import 'package:chatz/screens/sign_up_screen.dart';
 import 'package:chatz/widgets/landing_carousel.dart';
 import 'package:chatz/widgets/elevated_btn.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +24,9 @@ class LandingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Column(children: const [
-              SizedBox(height: 20),
-              Text(
+            Column(children: [
+              const SizedBox(height: 20),
+              const Text(
                 'Welcome to Chatz',
                 style: TextStyle(
                     fontSize: 18,
@@ -32,25 +34,37 @@ class LandingScreen extends StatelessWidget {
                     color: Colors.black87,
                     letterSpacing: 0.8),
               ),
-              LandingCarousel(),
-              Text(
+              const LandingCarousel(),
+              const Text(
                 'it is for free!',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.6,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedBtn(
                 text: 'Sign in',
-                btnColor: Color(0xffFFAD85),
+                btnColor: const Color(0xffFFAD85),
                 textColor: Colors.black87,
+                onTapped: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const SignInScreen(),
+                  ),
+                ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedBtn(
                 text: 'Create an Account',
-                btnColor: Color(0xff5EBDE6),
+                btnColor: const Color(0xff5EBDE6),
                 textColor: Colors.white,
+                onTapped: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const SignUpScreen(),
+                  ),
+                ),
               ),
             ]),
           ]),

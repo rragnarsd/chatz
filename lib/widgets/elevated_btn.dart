@@ -6,11 +6,13 @@ class ElevatedBtn extends StatelessWidget {
     required this.text,
     required this.btnColor,
     required this.textColor,
+    required this.onTapped,
   }) : super(key: key);
 
   final String text;
   final Color btnColor;
   final Color textColor;
+  final Function onTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ElevatedBtn extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        onPressed: () {},
+        onPressed: () => onTapped(),
         child: Text(
           text,
           style: TextStyle(
