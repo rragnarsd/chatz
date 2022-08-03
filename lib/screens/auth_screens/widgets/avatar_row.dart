@@ -1,4 +1,4 @@
-import 'package:chatz/widgets/avatar.dart';
+import 'package:chatz/screens/auth_screens/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 class SignUpAvatarRow extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:chatz/screens/landing_screen.dart';
+import 'package:chatz/screens/landing_screen/landing_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

@@ -1,6 +1,6 @@
 import 'package:chatz/widgets/app_bar.dart';
-import 'package:chatz/widgets/avatar_row.dart';
-import 'package:chatz/widgets/bottom_bar.dart';
+import 'package:chatz/screens/auth_screens/widgets/avatar_row.dart';
+import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(children: [
-            const CustomAppBar(),
+            const CustomAppBar(text: 'Sign Up'),
             Expanded(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.75,
@@ -40,7 +40,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ]),
               ),
             ),
-            if (!isKeyboardVisible) const SignUpBottomBar()
+            if (!isKeyboardVisible)
+              const SignUpBottomBar(
+                mainText: 'Save and Continue',
+                subText: 'Your data must be real',
+              )
           ]),
         ),
       ),

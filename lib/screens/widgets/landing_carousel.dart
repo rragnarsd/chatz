@@ -1,4 +1,4 @@
-import 'package:chatz/widgets/carousel.dart';
+import 'package:chatz/screens/widgets/carousel.dart';
 import 'package:flutter/material.dart';
 
 class LandingCarousel extends StatefulWidget {

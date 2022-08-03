@@ -1,9 +1,13 @@
+import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key? key,
+    required this.text,
   }) : super(key: key);
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -12,30 +16,16 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          CircleIconBtn(
             height: 30,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(
-                  side: BorderSide(
-                    color: Colors.black,
-                    width: 1.5,
-                  ),
-                ),
-                primary: const Color(0xffFFAD85),
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            btnColor: const Color(0xffFFAD85),
+            iconColor: Colors.black,
+            icon: Icons.arrow_back,
+            onTapped: () => Navigator.pop(context),
           ),
-          const Text(
-            'Sign Up',
-            style: TextStyle(
+          Text(
+            text,
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
               letterSpacing: 1,
             ),
