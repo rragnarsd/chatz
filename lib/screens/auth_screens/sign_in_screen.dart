@@ -16,19 +16,25 @@ class SignInScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: Column(children: [
             const CustomAppBar(text: 'Sign in'),
-            const Spacer(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                SizedBox(height: 30),
-                AuthTextField(labelText: 'Email address'),
-                SizedBox(height: 20),
-                AuthTextField(labelText: 'Password'),
-                SizedBox(height: 20),
-              ],
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.75,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ListView(
+                  children: [
+                    Image.asset(
+                      'assets/login-bro.png',
+                      height: 250,
+                    ),
+                    const SizedBox(height: 30),
+                    const AuthTextField(labelText: 'Email address'),
+                    const SizedBox(height: 20),
+                    const AuthTextField(labelText: 'Password'),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
-            const Spacer(),
             if (!isKeyboardVisible)
               const SignUpBottomBar(
                 mainText: 'I\'m ready',
