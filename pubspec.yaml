@@ -33,6 +33,8 @@ flutter:
      - assets/user-cuate.png
      - assets/user-pana.png
      - assets/user-rafiki.png
+     - assets/avatar.png
+     - assets/arrow.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
