@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 class ChatSearchBox extends StatelessWidget {
   const ChatSearchBox({
     Key? key,
+    required this.hintText,
+    this.isPrefix,
   }) : super(key: key);
+
+  final String hintText;
+  final Icon? isPrefix;
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    return TextField(
       cursorColor: Colors.black,
       decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.search,
-          color: Colors.black87,
-        ),
-        hintText: 'Search',
+        prefixIcon: isPrefix,
+        hintText: hintText,
         labelStyle: TextStyle(color: Colors.black54),
         contentPadding: EdgeInsets.only(left: 20),
         enabledBorder: OutlineInputBorder(

@@ -9,7 +9,7 @@ class ChatTileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: MediaQuery.of(context).size.width * 0.8,
       child: Stack(clipBehavior: Clip.none, children: [
         Positioned(
           left: 20,
@@ -17,7 +17,7 @@ class ChatTileBody extends StatelessWidget {
           top: 8,
           child: Container(
             height: 80,
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.7,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(),
