@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar_items.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,9 @@ class AuthBottomBar extends StatelessWidget {
       height: 100,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
-        color: Color(0xff9FD7B6),
+        color: ConstColors.greenCyan,
         border: Border.fromBorderSide(
-          BorderSide(color: Colors.black),
+          BorderSide(color: ConstColors.black),
         ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(27),

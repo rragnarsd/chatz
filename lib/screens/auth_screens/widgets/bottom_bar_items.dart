@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,7 @@ class BottomBarItems extends StatelessWidget {
         const Spacer(),
         CircleIconBtn(
           height: 40,
-          btnColor: const Color(0xff5EBDE6),
+          btnColor: ConstColors.lightBlueCyan,
           iconColor: Colors.white,
           icon: Icons.arrow_forward,
           onTapped: () => onTapped(),

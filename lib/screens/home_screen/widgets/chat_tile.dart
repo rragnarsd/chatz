@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ChatTile extends StatelessWidget {
@@ -13,10 +14,9 @@ class ChatTile extends StatelessWidget {
           Container(
             height: 40,
             decoration: BoxDecoration(
-              border: Border.all(width: 1.5),
-              shape: BoxShape.circle,
-              color: const Color(0xff49b0aa),
-            ),
+                border: Border.all(width: 1.5),
+                shape: BoxShape.circle,
+                color: ConstColors.shadeOfCyan),
             child: Image.asset(
               'assets/avatar.png',
               alignment: Alignment.topCenter,
@@ -40,7 +40,7 @@ class ChatTile extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   letterSpacing: 0.8,
-                  color: Colors.black54,
+                  color: ConstColors.black54,
                 ),
               ),
             ],
@@ -55,7 +55,7 @@ class ChatTile extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               letterSpacing: 0.8,
-              color: Colors.black54,
+              color: ConstColors.black54,
             ),
           ),
           SizedBox(height: 4),

@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class Carousel extends StatelessWidget {
@@ -37,8 +38,8 @@ class Carousel extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: index == indexDots
-                          ? const Color(0xff7fac91)
-                          : const Color(0xff9FD7B6),
+                          ? ConstColors.darkerCyan
+                          : ConstColors.greenCyan,
                     ),
                   ),
                 ),

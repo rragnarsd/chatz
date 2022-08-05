@@ -16,8 +16,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   firebase_core: ^1.20.0
-  cloud_firestore: ^3.4.3
+  cloud_firestore: ^3.4.2
   firebase_auth: ^3.6.2
+  firebase_storage: ^10.3.3
   image_picker: ^0.8.5+3
   
 

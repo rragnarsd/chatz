@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/auth_screens/sign_in_screen.dart';
 import 'package:chatz/screens/auth_screens/sign_up_screen.dart';
 import 'package:chatz/screens/landing_screen/widgets/elevated_btn.dart';
@@ -16,10 +17,10 @@ class LandingScreen extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * 0.25,
               decoration: const BoxDecoration(
-                color: Color(0xff9FD7B6),
+                color: ConstColors.greenCyan,
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.black,
+                    color: ConstColors.black,
                   ),
                 ),
               ),
@@ -31,7 +32,7 @@ class LandingScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+                    color: ConstColors.black87,
                     letterSpacing: 0.8),
               ),
               const LandingCarousel(),
@@ -45,8 +46,8 @@ class LandingScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedBtn(
                 text: 'Sign in',
-                btnColor: const Color(0xffFFAD85),
-                textColor: Colors.black87,
+                btnColor: ConstColors.redOrange,
+                textColor: ConstColors.black87,
                 onTapped: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -57,8 +58,8 @@ class LandingScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedBtn(
                 text: 'Create an Account',
-                btnColor: const Color(0xff5EBDE6),
-                textColor: Colors.white,
+                btnColor: ConstColors.lightBlueCyan,
+                textColor: ConstColors.white,
                 onTapped: () => Navigator.push(
                   context,
                   MaterialPageRoute(

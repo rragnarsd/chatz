@@ -1,44 +1,40 @@
-import 'package:chatz/widgets/circle_icon_btn.dart';
+import 'package:chatz/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
+class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppbar({
     Key? key,
-    required this.text,
+    required this.leading,
+    required this.actions,
+    required this.title,
   }) : super(key: key);
 
-  final String text;
+  final Widget leading;
+  final List<Widget> actions;
+  final Widget title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(7),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CircleIconBtn(
-            height: 30,
-            btnColor: const Color(0xffFFAD85),
-            iconColor: Colors.black,
-            icon: Icons.arrow_back,
-            onTapped: () => Navigator.pop(context),
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.settings_outlined,
-              color: Colors.black87,
-            ),
-          ),
-        ],
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: false,
+      leading: leading,
+      iconTheme: const IconThemeData(
+        color: ConstColors.black87,
+      ),
+      actions: actions,
+      title: title,
+      titleTextStyle: const TextStyle(
+        color: ConstColors.black87,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.8,
+        fontSize: 16,
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(55);
 }

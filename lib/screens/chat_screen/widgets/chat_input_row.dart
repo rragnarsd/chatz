@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +20,13 @@ class ChatInputRow extends StatelessWidget {
           const SizedBox(width: 15),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(13),
-              ),
-              color: const Color(0xffFFAD85),
-            ),
+                border: Border.all(
+                  color: ConstColors.black,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(13),
+                ),
+                color: ConstColors.redOrange),
             child: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.send),

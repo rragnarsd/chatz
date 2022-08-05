@@ -17,19 +17,19 @@ class ChatSearchBox extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: isPrefix,
         hintText: hintText,
-        labelStyle: TextStyle(color: Colors.black54),
-        contentPadding: EdgeInsets.only(left: 20),
-        enabledBorder: OutlineInputBorder(
+        labelStyle: const TextStyle(color: Colors.black54),
+        contentPadding: const EdgeInsets.only(left: 20),
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(13),
           ),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(13),
           ),
         ),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(13),
           ),

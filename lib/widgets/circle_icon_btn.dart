@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CircleIconBtn extends StatelessWidget {
@@ -23,10 +24,7 @@ class CircleIconBtn extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(
-            side: BorderSide(
-              width: 1.5,
-              color: Colors.black,
-            ),
+            side: BorderSide(width: 1.5, color: ConstColors.black),
           ),
           primary: btnColor,
         ),
