@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -82,12 +83,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ElevatedButton(
                             onPressed: () {
                               signOut().then(
-                                (value) => Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LandingScreen(),
-                                  ),
-                                ),
+                                (value) => Navigator.pushReplacementNamed(
+                                    context, AppRouter.landingScreen),
                               );
                             },
                             child: const Text('Sign out'),

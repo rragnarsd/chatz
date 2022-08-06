@@ -1,3 +1,4 @@
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +15,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, this.appRouter}) : super(key: key);
+
+  final Route? appRouter;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
