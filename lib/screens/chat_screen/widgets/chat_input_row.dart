@@ -15,18 +15,19 @@ class ChatInputRow extends StatelessWidget {
         children: [
           const Expanded(
               child: ChatSearchBox(
-            hintText: 'Type your messages...',
+            hintText: 'Type your message...',
           )),
           const SizedBox(width: 15),
           Container(
             decoration: BoxDecoration(
-                border: Border.all(
-                  color: ConstColors.black,
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(13),
-                ),
-                color: ConstColors.redOrange),
+              border: Border.all(
+                color: ConstColors.black,
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(13),
+              ),
+              color: ConstColors.redOrange,
+            ),
             child: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.send),

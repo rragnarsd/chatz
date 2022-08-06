@@ -5,15 +5,21 @@ class ChatSearchBox extends StatelessWidget {
     Key? key,
     required this.hintText,
     this.isPrefix,
+    this.controller,
+    this.function,
   }) : super(key: key);
 
   final String hintText;
   final Icon? isPrefix;
+  final TextEditingController? controller;
+  final Function(String)? function;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: Colors.black,
+      controller: controller,
+      onChanged: function,
       decoration: InputDecoration(
         prefixIcon: isPrefix,
         hintText: hintText,
