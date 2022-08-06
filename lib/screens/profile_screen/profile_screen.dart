@@ -8,7 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key, this.userData}) : super(key: key);
+
+  final AsyncSnapshot<dynamic>? userData;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -16,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final User? _user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: SafeArea(
         child: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection('users')
-              .doc(_user!.uid)
-              .get(),
+          future: firestore.collection('users').doc(_user!.uid).get(),
           builder: (context, AsyncSnapshot snapshot) {
             var userData = snapshot.data;
             if (snapshot.hasError) {

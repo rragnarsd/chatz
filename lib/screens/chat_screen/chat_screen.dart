@@ -1,6 +1,7 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/screens/profile_screen/profile_screen.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,7 @@ import 'package:intl/intl.dart';
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.group}) : super(key: key);
 
-  final group;
+  final dynamic group;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -20,12 +21,25 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  dynamic data;
+
   final TextEditingController controller = TextEditingController();
 
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    FirebaseService().getUserData().then((value) {
+      data = value;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -38,8 +52,8 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         title: const Text('Your Chat with...'),
         actions: [
-          IconButton(
-            onPressed: () {
+          InkWell(
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -47,7 +61,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               );
             },
-            icon: const Icon(Icons.person),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: ConstColors.darkerCyan,
+                backgroundImage: data == null ? null : NetworkImage(
+                  data['imgUrl']
+                ),
+              ),
+            ),
           )
         ],
       ),

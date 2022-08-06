@@ -2,6 +2,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/screens/profile_screen/profile_screen.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,8 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  dynamic data;
   String? message;
   String search = '';
+  String? imgUrl;
+
+  @override
+  void initState() {
+    FirebaseService().getUserData().then((value) {
+      data = value;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +47,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: const Text('Your Chatz'),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: ConstColors.darkerCyan,
+                  backgroundImage:
+                      data == null ? null : NetworkImage(data['imgUrl']),
                 ),
-              );
-            },
-            icon: const Icon(Icons.person),
-          )
+              ))
         ],
       ),
       body: SafeArea(
