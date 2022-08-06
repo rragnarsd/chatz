@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ElevatedBtn extends StatelessWidget {
@@ -23,7 +24,9 @@ class ElevatedBtn extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: btnColor,
           shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.black),
+            side: const BorderSide(
+              color: ConstColors.black,
+            ),
             borderRadius: BorderRadius.circular(50),
           ),
         ),

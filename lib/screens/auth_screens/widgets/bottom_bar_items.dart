@@ -1,4 +1,5 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -25,18 +26,11 @@ class BottomBarItems extends StatelessWidget {
           children: [
             Text(
               mainText,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-              ),
+              style: TextStyles.style16Bold,
             ),
             Text(
               subText,
-              style: const TextStyle(
-                fontSize: 14,
-                letterSpacing: 0.8,
-              ),
+              style: TextStyles.style14,
             ),
           ],
         ),
@@ -44,7 +38,7 @@ class BottomBarItems extends StatelessWidget {
         CircleIconBtn(
           height: 40,
           btnColor: ConstColors.lightBlueCyan,
-          iconColor: Colors.white,
+          iconColor: ConstColors.white,
           icon: Icons.arrow_forward,
           onTapped: () => onTapped(),
         ),

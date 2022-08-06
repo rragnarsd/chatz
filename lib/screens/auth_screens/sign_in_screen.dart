@@ -1,6 +1,6 @@
 import 'package:chatz/constants/validations.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
-import 'package:chatz/screens/home_screen/home_screen.dart';
 
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -115,14 +115,8 @@ class _SignInScreenState extends State<SignInScreen> {
             email: email,
             password: password,
           )
-          .then(
-            (value) => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            ),
-          );
+          .then((value) =>
+              Navigator.pushReplacementNamed(context, AppRouter.homeScreen));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -1,4 +1,4 @@
-import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
 
 class AddImageIcon extends StatelessWidget {
@@ -9,11 +9,7 @@ class AddImageIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1.5),
-        shape: BoxShape.circle,
-        color: ConstColors.white,
-      ),
+      decoration: UIStyles.iconDecoration,
       child: const Padding(
         padding: EdgeInsets.all(4.0),
         child: Icon(

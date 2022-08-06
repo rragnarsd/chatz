@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
-import 'package:chatz/screens/landing_screen/landing_screen.dart';
+import 'package:chatz/screens/profile_screen/widgets/profile_row.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,10 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.5,
                       width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.5),
-                        borderRadius: BorderRadius.circular(13),
-                      ),
+                      decoration: UIStyles.profileDecoration,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,19 +64,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 50),
                           Text(
                             userData['name'] ?? '',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.8,
-                            ),
+                            style: TextStyles.style18Bold,
                           ),
                           const SizedBox(height: 5),
                           Text(
                             userData['email'] ?? '',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 0.8,
-                            ),
+                            style: TextStyles.style16,
                           ),
                           ElevatedButton(
                             onPressed: () {
@@ -110,45 +101,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future signOut() async {
     await FirebaseAuth.instance.signOut();
-  }
-}
-
-class ProfileRow extends StatelessWidget {
-  const ProfileRow({
-    Key? key,
-    required this.userData,
-  }) : super(key: key);
-
-  final dynamic userData;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/arrow.png',
-          height: 40,
-        ),
-        const SizedBox(width: 20),
-        userData['imgUrl'] != null
-            ? CircleAvatar(
-                radius: 64,
-                backgroundColor: ConstColors.greenCyan,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(userData['imgUrl']),
-                  radius: 60,
-                ),
-              )
-            : const CircleAvatar(radius: 60),
-        const SizedBox(width: 20),
-        RotatedBox(
-          quarterTurns: 2,
-          child: Image.asset(
-            'assets/arrow.png',
-            height: 40,
-          ),
-        ),
-      ],
-    );
   }
 }

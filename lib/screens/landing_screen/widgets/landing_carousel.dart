@@ -1,3 +1,4 @@
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/landing_screen/widgets/carousel.dart';
 import 'package:flutter/material.dart';
 
@@ -29,11 +30,7 @@ class _LandingCarouselState extends State<LandingCarousel> {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 0.87,
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(45),
-              color: Colors.white,
-            ),
+            decoration: UIStyles.carouselDecoration,
           ),
         ),
         Positioned(
@@ -42,21 +39,15 @@ class _LandingCarouselState extends State<LandingCarousel> {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 0.87,
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(45),
-              color: Colors.white,
-            ),
+            decoration: UIStyles.carouselDecoration,
           ),
         ),
         Positioned(
           child: Container(
             padding: const EdgeInsets.all(40),
             margin: const EdgeInsets.all(40),
-            decoration: BoxDecoration(
-              border: Border.all(),
+            decoration: UIStyles.carouselDecoration.copyWith(
               borderRadius: BorderRadius.circular(22),
-              color: Colors.white,
             ),
             child: Carousel(images: images),
           ),

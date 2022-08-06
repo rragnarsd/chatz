@@ -4,8 +4,9 @@ import 'dart:io';
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/data/models/user_model.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
-import 'package:chatz/screens/home_screen/home_screen.dart';
+import 'package:chatz/screens/auth_screens/widgets/add_image_text.dart';
 
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/widgets/text_field.dart';
@@ -268,10 +269,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       imgUrl: imageURL,
     );
     await firestore.collection('users').doc(user!.uid).set(model.toJson()).then(
-        (value) => Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-            (route) => false));
+        (value) => Navigator.pushNamedAndRemoveUntil(
+            context, AppRouter.homeScreen, (route) => false));
   }
 
   void pickImageFromCamera() async {
@@ -300,24 +299,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-class AddImageText extends StatelessWidget {
-  const AddImageText({Key? key, required this.icon, required this.text})
-      : super(key: key);
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon),
-        const SizedBox(width: 10),
-        Text(
-          text,
-          style: const TextStyle(fontSize: 16),
-        ),
-      ],
-    );
-  }
-}

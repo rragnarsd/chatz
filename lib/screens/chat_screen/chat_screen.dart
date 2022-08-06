@@ -1,6 +1,7 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
-import 'package:chatz/screens/profile_screen/profile_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,21 +55,15 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ),
-              );
+              Navigator.pushNamed(context, AppRouter.profileScreen);
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: ConstColors.darkerCyan,
-                backgroundImage: data == null ? null : NetworkImage(
-                  data['imgUrl']
-                ),
+                backgroundImage:
+                    data == null ? null : NetworkImage(data['imgUrl']),
               ),
             ),
           )
@@ -146,15 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     )),
                     const SizedBox(width: 15),
                     Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ConstColors.black,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(13),
-                        ),
-                        color: ConstColors.redOrange,
-                      ),
+                      decoration: UIStyles.chatDecoration,
                       child: IconButton(
                         onPressed: () {
                           firestore

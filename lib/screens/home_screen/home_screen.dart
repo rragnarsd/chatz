@@ -1,7 +1,8 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
-import 'package:chatz/screens/profile_screen/profile_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
@@ -49,12 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ),
-                );
+                Navigator.pushNamed(context, AppRouter.profileScreen);
               },
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -93,10 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: const Text(
                       'Your messages',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          letterSpacing: 0.8),
+                      style: TextStyles.style16Bold,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -182,34 +175,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16.0),
                           child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(width: 1),
-                                  primary: ConstColors.redOrange),
-                              onPressed: () {
-                                firestore
-                                    .collection('chatz')
-                                    .doc(message)
-                                    .collection('messages')
-                                    .add({
-                                  'sender': auth.currentUser!.email,
-                                  'message': 'New group created!',
-                                  'time':
-                                      DateFormat('hh:mm').format(DateTime.now())
-                                });
-                                firestore
-                                    .collection('chatz')
-                                    .doc(message)
-                                    .set({'status': 'active'});
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Save',
-                                style: TextStyle(
-                                  color: ConstColors.black,
-                                  letterSpacing: 0.8,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )),
+                            style: ElevatedButton.styleFrom(
+                                side: const BorderSide(width: 1),
+                                primary: ConstColors.redOrange),
+                            onPressed: () {
+                              firestore
+                                  .collection('chatz')
+                                  .doc(message)
+                                  .collection('messages')
+                                  .add({
+                                'sender': auth.currentUser!.email,
+                                'message': 'New group created!',
+                                'time':
+                                    DateFormat('hh:mm').format(DateTime.now())
+                              });
+                              firestore
+                                  .collection('chatz')
+                                  .doc(message)
+                                  .set({'status': 'active'});
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Save',
+                              style: TextStyles.style14Bold,
+                            ),
+                          ),
                         )
                       ]);
                 });

@@ -24,7 +24,10 @@ class CircleIconBtn extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(
-            side: BorderSide(width: 1.5, color: ConstColors.black),
+            side: BorderSide(
+              width: 1.5,
+              color: ConstColors.black,
+            ),
           ),
           primary: btnColor,
         ),

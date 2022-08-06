@@ -15,7 +15,9 @@ class AddImageText extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           text,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(
+            fontSize: 16,
+          ),
         ),
       ],
     );

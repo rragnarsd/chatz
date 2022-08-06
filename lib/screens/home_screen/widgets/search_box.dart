@@ -1,3 +1,5 @@
+import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChatSearchBox extends StatelessWidget {
@@ -17,29 +19,21 @@ class ChatSearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      cursorColor: Colors.black,
+      cursorColor: ConstColors.black,
       controller: controller,
       onChanged: function,
       decoration: InputDecoration(
         prefixIcon: isPrefix,
         hintText: hintText,
-        labelStyle: const TextStyle(color: Colors.black54),
-        contentPadding: const EdgeInsets.only(left: 20),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
+        labelStyle: const TextStyle(
+          color: ConstColors.black54,
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
+        contentPadding: const EdgeInsets.only(
+          left: 20,
         ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
-        ),
+        enabledBorder: UIStyles.borders,
+        focusedBorder: UIStyles.borders,
+        border: UIStyles.borders,
       ),
     );
   }

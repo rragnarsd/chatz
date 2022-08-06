@@ -1,4 +1,5 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
@@ -24,23 +25,15 @@ class AuthTextField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: ConstColors.black54),
-        contentPadding: const EdgeInsets.only(left: 20),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
+        labelStyle: const TextStyle(
+          color: ConstColors.black54,
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
+        contentPadding: const EdgeInsets.only(
+          left: 20,
         ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(13),
-          ),
-        ),
+        enabledBorder: UIStyles.borders,
+        focusedBorder: UIStyles.borders,
+        border: UIStyles.borders,
       ),
     );
   }

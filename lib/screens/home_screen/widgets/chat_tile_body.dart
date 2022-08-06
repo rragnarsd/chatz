@@ -1,4 +1,6 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,7 @@ class ChatTileBody extends StatelessWidget {
         builder: (context, AsyncSnapshot<QuerySnapshot> snap) {
           return InkWell(
             onTap: () {
+              //TODO - Change
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -37,18 +40,15 @@ class ChatTileBody extends StatelessWidget {
                   child: Container(
                     height: 80,
                     width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(),
+                    decoration: UIStyles.chatDecoration.copyWith(
+                      color: ConstColors.lightShadeOrange,
                     ),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
+                  decoration: UIStyles.chatDecoration.copyWith(
+                    color: ConstColors.white,
                   ),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,20 +74,12 @@ class ChatTileBody extends StatelessWidget {
                               children: [
                                 Text(
                                   title ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.8,
-                                    color: Colors.black87,
-                                  ),
+                                  style: TextStyles.style14Bold,
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
                                   snap.data?.docs.last['message'] ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    letterSpacing: 0.8,
-                                    color: ConstColors.black54,
-                                  ),
+                                  style: TextStyles.style12,
                                 ),
                               ],
                             ),
@@ -98,11 +90,7 @@ class ChatTileBody extends StatelessWidget {
                           children: [
                             Text(
                               snap.data?.docs.last['time'].toString() ?? '',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                letterSpacing: 0.8,
-                                color: ConstColors.black54,
-                              ),
+                              style: TextStyles.style12,
                             ),
                             const SizedBox(height: 4),
                             const CircleAvatar(radius: 6),

@@ -1,4 +1,5 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -26,11 +27,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: actions,
       title: title,
-      titleTextStyle: const TextStyle(
+      titleTextStyle: TextStyles.style16Bold.copyWith(
         color: ConstColors.black87,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 0.8,
-        fontSize: 16,
       ),
     );
   }
