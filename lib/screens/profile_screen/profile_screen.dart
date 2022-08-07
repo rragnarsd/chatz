@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             userData['name'] ?? '',
                             style: TextStyles.style18Bold,
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 20),
                           ProfileInfoRow(
                             userData: userData,
                             userKey: 'Name:',
