@@ -8,7 +8,7 @@ import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
-import 'package:chatz/widgets/reusable_dialog.dart';
+import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';

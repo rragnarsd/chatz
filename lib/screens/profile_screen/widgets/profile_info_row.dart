@@ -8,11 +8,15 @@ class ProfileInfoRow extends StatelessWidget {
     required this.userData,
     required this.userKey,
     required this.userValue,
+    this.function,
+    this.isChangeable = false,
   }) : super(key: key);
 
   final dynamic userData;
   final String userKey;
   final String userValue;
+  final bool isChangeable;
+  final Function()? function;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +37,12 @@ class ProfileInfoRow extends StatelessWidget {
                 color: ConstColors.black87,
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit,
-                color: ConstColors.darkerCyan,
-              ),
-            )
+            isChangeable == false
+                ? const SizedBox.shrink()
+                : IconButton(
+                    onPressed: function,
+                    icon: const Icon(Icons.edit, color: ConstColors.darkerCyan),
+                  )
           ],
         ),
       ],

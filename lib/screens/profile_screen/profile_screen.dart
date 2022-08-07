@@ -1,12 +1,14 @@
 import 'dart:developer';
 
-import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_image_row.dart';
 import 'package:chatz/widgets/app_bar.dart';
+import 'package:chatz/widgets/reusable_dialog.dart';
+import 'package:chatz/widgets/reusable_elevated_button.dart';
+import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,16 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final User? _user = FirebaseAuth.instance.currentUser;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  final TextEditingController _nameController = TextEditingController();
+
+  String? value;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,32 +56,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyles.style14,
                     ),
                     actions: [
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(width: 1),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                        child: Text(
-                          'Cancel',
-                          style: TextStyles.style14.copyWith(
-                            color: ConstColors.black87,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          side: const BorderSide(width: 1),
-                          primary: ConstColors.redOrange,
-                        ),
-                        onPressed: () {
-                          signOut().then(
-                            (value) => Navigator.pushReplacementNamed(
-                                context, AppRouter.landingScreen),
-                          );
-                        },
-                        child: const Text(
-                          'Continue',
-                          style: TextStyles.style14Bold,
+                      const ReusableOutlineButton(text: 'Cancel'),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: ReusableElevatedButton(
+                          text: 'Continue',
+                          function: () {
+                            signOut().then(
+                              (value) => Navigator.pushReplacementNamed(
+                                  context, AppRouter.landingScreen),
+                            );
+                          },
                         ),
                       )
                     ],
@@ -80,8 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: SafeArea(
-        child: FutureBuilder(
-          future: firestore.collection('users').doc(_user!.uid).get(),
+        child: StreamBuilder(
+          stream: firestore.collection('users').doc(_user!.uid).snapshots(),
           builder: (context, AsyncSnapshot snapshot) {
             var userData = snapshot.data;
             if (snapshot.hasError) {
@@ -118,6 +115,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             userData: userData,
                             userKey: 'Name:',
                             userValue: userData['name'] ?? '',
+                            isChangeable: true,
+                            function: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return ReusableDialog(
+                                      nameController: _nameController,
+                                      hintText: 'Enter new name..',
+                                      header: 'Update name',
+                                      onUpdate: () {
+                                        updateName().then(
+                                            (value) => Navigator.pop(context));
+                                      },
+                                    );
+                                  });
+                            },
                           ),
                           const Divider(thickness: 1),
                           ProfileInfoRow(
@@ -147,5 +160,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future signOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Future updateName() {
+    var newName = firestore
+        .collection('users')
+        .doc(_user!.uid)
+        .update({'name': _nameController.text});
+    return newName;
   }
 }

@@ -6,6 +6,8 @@ import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
+import 'package:chatz/widgets/reusable_elevated_button.dart';
+import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -178,35 +180,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                       actions: [
+                        const ReusableOutlineButton(text: 'Cancel'),
                         Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                side: const BorderSide(width: 1),
-                                primary: ConstColors.redOrange),
-                            onPressed: () {
-                              firestore
-                                  .collection('chatz')
-                                  .doc(message)
-                                  .collection('messages')
-                                  .add({
-                                'sender': auth.currentUser!.email,
-                                'message': 'New group created!',
-                                'time': DateFormat('hh:mm').format(
-                                  DateTime.now(),
-                                )
-                              });
-                              firestore
-                                  .collection('chatz')
-                                  .doc(message)
-                                  .set({'status': 'active'});
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Save',
-                              style: TextStyles.style14Bold,
-                            ),
-                          ),
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: ReusableElevatedButton(
+                              text: 'Save',
+                              function: () {
+                                firestore
+                                    .collection('chatz')
+                                    .doc(message)
+                                    .collection('messages')
+                                    .add({
+                                  'sender': auth.currentUser!.email,
+                                  'message': 'New group created!',
+                                  'time': DateFormat('hh:mm').format(
+                                    DateTime.now(),
+                                  )
+                                });
+                                firestore
+                                    .collection('chatz')
+                                    .doc(message)
+                                    .set({'status': 'active'});
+                                Navigator.pop(context);
+                              }),
                         )
                       ]);
                 });

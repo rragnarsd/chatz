@@ -1,6 +1,6 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
-import 'package:chatz/widgets/reusable_dialog.dart';
+import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class ProfileImageRow extends StatelessWidget {
