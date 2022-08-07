@@ -56,9 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(10),
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundColor: ConstColors.darkerCyan,
-                  backgroundImage:
-                      data == null ? null : NetworkImage(data['imgUrl']),
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: ConstColors.darkerCyan,
+                    backgroundImage:
+                        data == null ? null : NetworkImage(data['imgUrl']),
+                  ),
                 ),
               ))
         ],
@@ -160,7 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                      title: const Text('Create group'),
+                      title: const Text(
+                        'Create group',
+                        style: TextStyles.style16Bold,
+                      ),
                       content: TextField(
                         decoration: const InputDecoration(
                           hintText: 'Enter name..',
@@ -186,8 +192,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .add({
                                 'sender': auth.currentUser!.email,
                                 'message': 'New group created!',
-                                'time':
-                                    DateFormat('hh:mm').format(DateTime.now())
+                                'time': DateFormat('hh:mm').format(
+                                  DateTime.now(),
+                                )
                               });
                               firestore
                                   .collection('chatz')

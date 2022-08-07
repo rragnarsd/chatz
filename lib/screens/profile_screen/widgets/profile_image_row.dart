@@ -36,18 +36,14 @@ class ProfileImageRow extends StatelessWidget {
                   right: 0,
                   child: InkWell(
                     onTap: () {
-                      showDialog(
+                      showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          isDismissible: true,
                           context: context,
                           builder: (context) {
-                            return ReusableDialog(
-                              fromCamera: () {
-                                // pickImageFromCamera();
-                                // Navigator.pop(context);
-                              },
-                              fromGallery: () {
-                                // pickImageFromGallery();
-                                // Navigator.pop(context);
-                              },
+                            return ReusableBottomSheet(
+                              fromCamera: () {},
+                              fromGallery: () {},
                             );
                           });
                     },

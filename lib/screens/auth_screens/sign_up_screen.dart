@@ -89,10 +89,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             right: 0,
                             child: InkWell(
                               onTap: () {
-                                showDialog(
+                                showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    isDismissible: true,
                                     context: context,
                                     builder: (context) {
-                                      return ReusableDialog(
+                                      return ReusableBottomSheet(
                                         fromCamera: () {
                                           pickImageFromCamera();
                                           Navigator.pop(context);

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
@@ -44,17 +45,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     actions: [
                       OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(width: 1),
+                        ),
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancel'),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyles.style14.copyWith(
+                            color: ConstColors.black87,
+                          ),
+                        ),
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          side: const BorderSide(width: 1),
+                          primary: ConstColors.redOrange,
+                        ),
                         onPressed: () {
                           signOut().then(
                             (value) => Navigator.pushReplacementNamed(
                                 context, AppRouter.landingScreen),
                           );
                         },
-                        child: const Text('Continue'),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyles.style14Bold,
+                        ),
                       )
                     ],
                   ),
