@@ -6,9 +6,9 @@ import 'package:chatz/constants/validations.dart';
 import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
-import 'package:chatz/screens/auth_screens/widgets/add_image_text.dart';
 
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
+import 'package:chatz/widgets/reusable_dialog.dart';
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -92,44 +92,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text(
-                                          'Choose option',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 0.8,
-                                          ),
-                                        ),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(children: [
-                                            InkWell(
-                                              onTap: () {
-                                                pickImageFromCamera();
-                                                Navigator.pop(context);
-                                              },
-                                              child: const AddImageText(
-                                                icon: Icons.camera_alt,
-                                                text: 'Camera',
-                                              ),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            InkWell(
-                                              onTap: () {
-                                                pickImageFromGallery();
-                                                Navigator.pop(context);
-                                              },
-                                              child: const AddImageText(
-                                                icon: Icons.image,
-                                                text: 'Gallery',
-                                              ),
-                                            ),
-                                          ]),
-                                        ),
+                                      return ReusableDialog(
+                                        fromCamera: () {
+                                          pickImageFromCamera();
+                                          Navigator.pop(context);
+                                        },
+                                        fromGallery: () {
+                                          pickImageFromGallery();
+                                          Navigator.pop(context);
+                                        },
                                       );
                                     });
                               },
-                              child: const AddImageIcon(),
+                              child: const AddImageIcon(
+                                iconSize: 14,
+                                backgroundColor: ConstColors.white,
+                                iconColor: ConstColors.black87,
+                              ),
                             ),
                           )
                         ]),
@@ -298,4 +277,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return imageUrl;
   }
 }
-

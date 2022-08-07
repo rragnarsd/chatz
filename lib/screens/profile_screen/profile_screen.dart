@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
-import 'package:chatz/screens/profile_screen/widgets/profile_row.dart';
+import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
+import 'package:chatz/screens/profile_screen/widgets/profile_image_row.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,7 +32,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: const Icon(Icons.arrow_back),
         ),
         title: const Text('Your Profile'),
-        actions: const [],
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                      'Are you sure you want to sign out?',
+                      style: TextStyles.style14,
+                    ),
+                    actions: [
+                      OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Cancel'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          signOut().then(
+                            (value) => Navigator.pushReplacementNamed(
+                                context, AppRouter.landingScreen),
+                          );
+                        },
+                        child: const Text('Continue'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
       body: SafeArea(
         child: FutureBuilder(
@@ -54,8 +84,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     top: 120,
                     left: 20,
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: UIStyles.profileDecoration,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -67,19 +98,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             style: TextStyles.style18Bold,
                           ),
                           const SizedBox(height: 5),
-                          Text(
-                            userData['email'] ?? '',
-                            style: TextStyles.style16,
+                          ProfileInfoRow(
+                            userData: userData,
+                            userKey: 'Name:',
+                            userValue: userData['name'] ?? '',
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              signOut().then(
-                                (value) => Navigator.pushReplacementNamed(
-                                    context, AppRouter.landingScreen),
-                              );
-                            },
-                            child: const Text('Sign out'),
+                          const Divider(thickness: 1),
+                          ProfileInfoRow(
+                            userData: userData,
+                            userKey: 'Email:',
+                            userValue: userData['email'] ?? '',
                           ),
+                          const SizedBox(height: 5),
                           const Spacer(),
                         ],
                       ),
@@ -88,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Positioned(
                     top: 30,
                     left: 60,
-                    child: ProfileRow(userData: userData),
+                    child: ProfileImageRow(userData: userData),
                   ),
                 ],
               ),
