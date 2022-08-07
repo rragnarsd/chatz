@@ -1,6 +1,6 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/screens/auth_screens/widgets/add_image_text.dart';
+import 'package:chatz/widgets/reusable_tile.dart';
 import 'package:flutter/material.dart';
 
 class ReusableBottomSheet extends StatelessWidget {
@@ -16,45 +16,29 @@ class ReusableBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 200,
       decoration: UIStyles.authBottomBar.copyWith(color: Colors.white),
       child: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 100,
-                child: ListBody(children: [
-                  InkWell(
-                    onTap: () {},
-                    child: const AddImageText(
-                      icon: Icons.camera_alt,
-                      text: 'Camera',
-                      iconColor: ConstColors.darkerCyan,
-                    ),
-                  ),
-                  const Divider(thickness: 1),
-                  InkWell(
-                    onTap: () {},
-                    child: const AddImageText(
-                      icon: Icons.image,
-                      text: 'Gallery',
-                      iconColor: ConstColors.darkerCyan,
-                    ),
-                  ),
-                  const Divider(thickness: 1),
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: const AddImageText(
-                      icon: Icons.cancel,
-                      text: 'Cancel',
-                      iconColor: Colors.red,
-                    ),
-                  ),
-                ]),
-              ),
-            ]),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          ReusableTile(
+            icon: Icons.camera_alt,
+            iconColor: ConstColors.darkerCyan,
+            text: 'Camera',
+            function: fromCamera,
+          ),
+          ReusableTile(
+            icon: Icons.image,
+            iconColor: ConstColors.darkerCyan,
+            text: 'Gallery',
+            function: fromGallery,
+          ),
+          ReusableTile(
+            icon: Icons.cancel,
+            iconColor: Colors.red,
+            text: 'Cancel',
+            function: () => Navigator.pop(context),
+          ),
+        ]),
       ),
     );
   }
