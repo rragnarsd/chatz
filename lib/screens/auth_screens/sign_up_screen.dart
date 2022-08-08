@@ -249,6 +249,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       email: email,
       imgUrl: imageURL,
     );
+
     await firestore.collection('users').doc(user!.uid).set(model.toJson()).then(
         (value) => Navigator.pushNamedAndRemoveUntil(
             context, AppRouter.homeScreen, (route) => false));

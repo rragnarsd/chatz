@@ -1,9 +1,9 @@
 import 'package:chatz/screens/auth_screens/sign_in_screen.dart';
 import 'package:chatz/screens/auth_screens/sign_up_screen.dart';
-import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
 import 'package:chatz/screens/profile_screen/profile_screen.dart';
+import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -12,7 +12,8 @@ class AppRouter {
       profileScreen = '/profile_screen',
       chatScreen = '/chat_screen',
       signIncreen = '/sign_in_screen',
-      signUpcreen = '/sign_up_screen';
+      signUpcreen = '/sign_up_screen',
+      searchScreen = '/search_screen';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -28,12 +29,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
         );
-      case chatScreen:
-        return MaterialPageRoute(
-          builder: (context) => const ChatScreen(
-            group: null,
-          ),
-        );
+      // case chatScreen:
+      //   return MaterialPageRoute(
+      //     builder: (context) => const ChatScreen(),
+      //   );
       case signIncreen:
         return MaterialPageRoute(
           builder: (context) => const SignInScreen(),
@@ -41,6 +40,10 @@ class AppRouter {
       case signUpcreen:
         return MaterialPageRoute(
           builder: (context) => const SignUpScreen(),
+        );
+      case searchScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SearchScreen(),
         );
       default:
         return null;

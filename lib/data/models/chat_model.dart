@@ -1,37 +1,35 @@
-class ChatModel {
-  ChatModel({
-    //required this.uid,
-    required this.title,
-    required this.message,
-    required this.sender,
+class MessageField {
+  static const String createdAt = 'createdAt';
+}
+
+class Message {
+  final String uid;
+  final String imgUrl;
+  final String name;
+  final String message;
+  final DateTime createdAt;
+
+  Message({
+    required this.uid,
     required this.imgUrl,
-    required this.time,
+    required this.name,
+    required this.message,
+    required this.createdAt,
   });
 
-  //String uid;
-  String title;
-  String message;
-  String sender;
-  String imgUrl;
-  DateTime time;
-
-  factory ChatModel.fromJson(Map<String, dynamic> json) {
-    return ChatModel(
-      //uid: json['uid'],
-      title: json['title'],
-      message: json['message'],
-      sender: json['sender'],
-      imgUrl: json['imgUrl'],
-      time: json['time'],
-    );
-  }
+  static Message fromJson(Map<String, dynamic> json) => Message(
+        uid: json['uid'],
+        imgUrl: json['imgUrl'],
+        name: json['name'],
+        message: json['message'],
+        createdAt: json['createdAt'].toDate(),
+      );
 
   Map<String, dynamic> toJson() => {
-        //'uid': uid,
-        'name': title,
-        'email': message,
-        'sender': sender,
+        'uid': uid,
         'imgUrl': imgUrl,
-        'time': time,
+        'name': name,
+        'message': message,
+        'createdAt': createdAt,
       };
 }

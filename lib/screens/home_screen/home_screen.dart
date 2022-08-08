@@ -1,20 +1,19 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/routes/router.dart';
+import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
-import 'package:chatz/screens/home_screen/widgets/search_box.dart';
-import 'package:chatz/services/firebase.dart';
+import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
-import 'package:chatz/widgets/reusable_elevated_button.dart';
-import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, this.idUser}) : super(key: key);
+  final String? idUser;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,22 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  dynamic data;
-  String? message;
-  String search = '';
-  String? imgUrl;
-
-  @override
-  void initState() {
-    FirebaseService().getUserData().then((value) {
-      data = value;
-      if (mounted) {
-        setState(() {});
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.pushNamed(context, AppRouter.profileScreen);
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: CircleAvatar(
                   radius: 20,
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: ConstColors.darkerCyan,
-                    backgroundImage:
-                        data == null ? null : NetworkImage(data['imgUrl']),
                   ),
                 ),
               ))
@@ -70,77 +51,71 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: ListView(
+          child: Column(
             children: [
               const SizedBox(height: 20),
-              Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ChatSearchBox(
-                      hintText: 'Search',
-                      isPrefix: const Icon(Icons.search),
-                      function: (value) {
-                        setState(() {
-                          search = value;
-                        });
-                      },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Text(
+                  'Your friends',
+                  style: TextStyles.style16Bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              StreamBuilder(
+                stream: firestore.collection('users').snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('No users found'));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.75,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 20),
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          var users = snapshot.data!.docs[index];
+
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return ChatScreen(
+                                    user: UserModel(
+                                        email: users['name'],
+                                        imgUrl: users['imgUrl'],
+                                        lastMessage:
+                                            users['lastMessage'].toDate(),
+                                        name: users['name'],
+                                        uid: users['uid']),
+                                    //idUser: users.id,
+                                  );
+                                }),
+                              );
+                            },
+                            child: ChatTileBody(
+                              name: users['name'],
+                              image: users['imgUrl'],
+                              message: '',
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: const Text(
-                      'Your messages',
-                      style: TextStyles.style16Bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  StreamBuilder(
-                    stream: firestore.collection('chatz').snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Text('You don\'t have any groups yet');
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.6,
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 20),
-                          itemCount: snapshot.data!.docs.where((element) {
-                            return element.id.contains(search);
-                          }).length,
-                          itemBuilder: (context, index) {
-                            return ChatTileBody(
-                              stream: snapshot.data!.docs
-                                  .where((element) {
-                                    return element.id.contains(search);
-                                  })
-                                  .toList()[index]
-                                  .reference
-                                  .collection('messages')
-                                  .snapshots(),
-                              title: snapshot.data!.docs
-                                  .where((element) {
-                                    return element.id.contains(search);
-                                  })
-                                  .toList()[index]
-                                  .id,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                  );
+                },
               )
             ],
           ),
@@ -156,58 +131,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ]),
         child: CircleIconBtn(
-          btnColor: ConstColors.redOrange,
-          iconColor: Colors.black,
-          height: 56,
-          icon: Icons.add,
-          onTapped: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                      title: const Text(
-                        'Create group',
-                        style: TextStyles.style16Bold,
-                      ),
-                      content: TextField(
-                        decoration: const InputDecoration(
-                          hintText: 'Enter name..',
-                        ),
-                        onChanged: (groupName) {
-                          setState(() {
-                            message = groupName;
-                          });
-                        },
-                      ),
-                      actions: [
-                        const ReusableOutlineButton(text: 'Cancel'),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: ReusableElevatedButton(
-                              text: 'Save',
-                              function: () {
-                                firestore
-                                    .collection('chatz')
-                                    .doc(message)
-                                    .collection('messages')
-                                    .add({
-                                  'sender': auth.currentUser!.email,
-                                  'message': 'New group created!',
-                                  'time': DateFormat('hh:mm').format(
-                                    DateTime.now(),
-                                  )
-                                });
-                                firestore
-                                    .collection('chatz')
-                                    .doc(message)
-                                    .set({'status': 'active'});
-                                Navigator.pop(context);
-                              }),
-                        )
-                      ]);
-                });
-          },
-        ),
+            btnColor: ConstColors.redOrange,
+            iconColor: Colors.black,
+            height: 56,
+            icon: Icons.add,
+            onTapped: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+            }),
       ),
     );
   }

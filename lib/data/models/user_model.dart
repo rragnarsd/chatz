@@ -1,15 +1,17 @@
 class UserModel {
   UserModel({
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.imgUrl,
+    this.uid,
+    this.name,
+    this.email,
+    this.imgUrl,
+    this.lastMessage,
   });
 
-  String uid;
-  String name;
-  String email;
-  String imgUrl;
+  String? uid;
+  String? name;
+  String? email;
+  String? imgUrl;
+  DateTime? lastMessage;
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -17,6 +19,7 @@ class UserModel {
       name: json['name'],
       email: json['email'],
       imgUrl: json['imgUrl'],
+      lastMessage: json['lastMessage'],
     );
   }
 
@@ -25,5 +28,6 @@ class UserModel {
         'name': name,
         'email': email,
         'imgUrl': imgUrl,
+        'lastMessage': lastMessage!,
       };
 }
