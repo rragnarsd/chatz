@@ -19,7 +19,7 @@ class UserModel {
       name: json['name'],
       email: json['email'],
       imgUrl: json['imgUrl'],
-      lastMessage: json['lastMessage'],
+      lastMessage: DateTime.parse(json['lastMessage']),
     );
   }
 

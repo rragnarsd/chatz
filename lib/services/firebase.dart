@@ -6,23 +6,10 @@ class FirebaseService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  String userName = '';
-  String userImg = '';
-
-  Future getCurrentUser() async {
-    DocumentSnapshot snapshot =
-        await firestore.doc(auth.currentUser!.uid).get();
-    String name = snapshot.get('name');
-    name = userName;
-    String imgUrl = snapshot.get('imgUrl');
-    imgUrl = userImg;
-    String lastMessage = snapshot.get('lastMessage');
-    return [
-      name,
-      imgUrl,
-      lastMessage,
-    ];
-  }
+  String? uid;
+  String? email;
+  String? userName;
+  String? userImg;
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
     return firestore
@@ -33,23 +20,31 @@ class FirebaseService {
 
   Future createChat(String uid, String message) async {
     final docs = firestore.collection('chats/$uid/messages');
+    User? user = auth.currentUser;
+    uid = user!.uid;
+    email = user.email;
+
+    final DocumentSnapshot userDoc =
+        await firestore.collection('users').doc(uid).get();
+    userName = userDoc.get('name');
+    userImg = userDoc.get('imgUrl');
 
     final newMessage = Message(
       message: message,
       createdAt: DateTime.now(),
-      uid: auth.currentUser!.uid,
-      imgUrl: userImg,
-      name: userName,
+      uid: uid,
+      imgUrl: userImg ?? '',
+      name: userName ?? '',
     );
     await docs.add(newMessage.toJson());
 
-    final refUsers = firestore.collection('users');
-    await refUsers.doc(uid).update({'lastMessage': DateTime.now()});
+    final docUsers = firestore.collection('users');
+    await docUsers.doc(uid).update({'lastMessage': DateTime.now()});
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getChat(String idUser) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChat(String uid) {
     return firestore
-        .collection('chats/$idUser/messages')
+        .collection('chats/$uid/messages')
         .orderBy('createdAt', descending: true)
         .snapshots();
   }

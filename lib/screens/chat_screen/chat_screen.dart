@@ -1,5 +1,3 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/screens/chat_screen/widgets/chat_rich_text.dart';

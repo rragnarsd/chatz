@@ -90,6 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ChatTileBody(
                               name: users['name'],
                               image: users['imgUrl'],
+                              //TODO - timeago
+                              lastMessage: DateTime.parse(
+                                  users['lastMessage'].toDate().toString()),
                               message: '',
                             ),
                           );

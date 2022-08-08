@@ -48,6 +48,7 @@ class ChatsWidget extends StatelessWidget {
                           radius: 16,
                           backgroundColor: Colors.grey.shade400,
                           //TODO - networkimage
+                          backgroundImage: NetworkImage(message['imgUrl']),
                         ),
                       const SizedBox(width: 10),
                       Container(
