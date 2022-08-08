@@ -37,14 +37,22 @@ class ChatsWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final message = messages.docs[index];
                   var currentUser = message['uid'] == auth.currentUser!.uid;
+
                   return Row(
                     mainAxisAlignment: currentUser
                         ? MainAxisAlignment.end
                         : MainAxisAlignment.start,
                     children: [
+                      if (!currentUser)
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Colors.grey.shade400,
+                          //TODO - networkimage
+                        ),
+                      const SizedBox(width: 10),
                       Container(
                         padding: const EdgeInsets.all(10),
-                        constraints: const BoxConstraints(maxWidth: 140),
+                        constraints: const BoxConstraints(maxWidth: 160),
                         decoration: BoxDecoration(
                           color: currentUser
                               ? ConstColors.greenCyan

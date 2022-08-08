@@ -1,6 +1,8 @@
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/data/models/user_model.dart';
+import 'package:chatz/screens/chat_screen/widgets/chat_rich_text.dart';
 import 'package:chatz/screens/chat_screen/widgets/chats_widget.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/services/firebase.dart';
@@ -46,16 +48,8 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: Text('Your Chat with ${widget.user.name}'),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: ConstColors.darkerCyan,
-            ),
-          )
-        ],
+        title: ChatRichText(widget: widget),
+        withProfile: true,
       ),
       body: SafeArea(
         child: Center(
@@ -63,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              ChatsWidget(auth: auth, idUser: auth.currentUser!.uid),
+              ChatsWidget(auth: auth, idUser: widget.user.uid!),
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),
                 child: Row(
@@ -85,8 +79,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         onPressed: () {
                           message.trim().isEmpty
                               ? null
-                              : FirebaseService()
-                                  .createChat(widget.idUser!, message);
+                              : FirebaseService().createChat(
+                                  widget.user.uid!,
+                                  message,
+                                );
+                          controller.clear();
                         },
                         icon: const Icon(Icons.send),
                       ),
@@ -101,3 +98,4 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+

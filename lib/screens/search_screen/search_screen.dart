@@ -14,7 +14,6 @@ class SearchScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
         ),
         title: const Text('Search'),
-        actions: const [],
       ),
       body: SafeArea(
           child: SizedBox(

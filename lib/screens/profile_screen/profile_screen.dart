@@ -2,14 +2,11 @@ import 'dart:developer';
 
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_image_row.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/reusable_dialog.dart';
-import 'package:chatz/widgets/reusable_elevated_button.dart';
-import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,37 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: const Icon(Icons.arrow_back),
         ),
         title: const Text('Your Profile'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(
-                    'Are you sure you want to sign out?',
-                    style: TextStyles.style14,
-                  ),
-                  actions: [
-                    const ReusableOutlineButton(text: 'Cancel'),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: ReusableElevatedButton(
-                        text: 'Continue',
-                        function: () {
-                          FirebaseService().signOut().then(
-                                (value) => Navigator.pushReplacementNamed(
-                                    context, AppRouter.landingScreen),
-                              );
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-            icon: const Icon(Icons.logout),
-          )
-        ],
+        withProfile: false,
       ),
       body: SafeArea(
         child: StreamBuilder(

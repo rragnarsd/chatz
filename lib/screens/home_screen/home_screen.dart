@@ -1,7 +1,6 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/data/models/user_model.dart';
-import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
@@ -12,8 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, this.idUser}) : super(key: key);
-  final String? idUser;
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,22 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: const Icon(Icons.menu),
         ),
         title: const Text('Your Chatz'),
-        actions: [
-          InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, AppRouter.profileScreen);
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: CircleAvatar(
-                  radius: 20,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: ConstColors.darkerCyan,
-                  ),
-                ),
-              ))
-        ],
+        withProfile: true,
       ),
       body: SafeArea(
         child: SizedBox(
@@ -100,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             users['lastMessage'].toDate(),
                                         name: users['name'],
                                         uid: users['uid']),
-                                    //idUser: users.id,
                                   );
                                 }),
                               );

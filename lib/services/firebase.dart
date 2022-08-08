@@ -31,8 +31,8 @@ class FirebaseService {
         .snapshots();
   }
 
-  Future createChat(String idUser, String message) async {
-    final docs = firestore.collection('chats/$idUser/messages');
+  Future createChat(String uid, String message) async {
+    final docs = firestore.collection('chats/$uid/messages');
 
     final newMessage = Message(
       message: message,
@@ -44,7 +44,7 @@ class FirebaseService {
     await docs.add(newMessage.toJson());
 
     final refUsers = firestore.collection('users');
-    await refUsers.doc(idUser).update({'lastMessage': DateTime.now()});
+    await refUsers.doc(uid).update({'lastMessage': DateTime.now()});
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getChat(String idUser) {
