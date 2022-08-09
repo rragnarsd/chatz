@@ -15,7 +15,7 @@ class ChatTileBody extends StatelessWidget {
   final String name;
   final String message;
   final String image;
-  final DateTime lastMessage;
+  final String lastMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class ChatTileBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                lastMessage.toString(),
+                lastMessage,
                 style: TextStyles.style12,
               ),
               const SizedBox(height: 4),

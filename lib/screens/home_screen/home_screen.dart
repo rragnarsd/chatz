@@ -21,6 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  String convertToAgo(DateTime input) {
+    Duration timeAgo = DateTime.now().difference(input);
+
+    if (timeAgo.inDays >= 1) {
+      return '${timeAgo.inDays} day(s) ago';
+    } else if (timeAgo.inHours >= 1) {
+      return '${timeAgo.inHours} hour(s) ago';
+    } else if (timeAgo.inMinutes >= 1) {
+      return '${timeAgo.inMinutes} minute(s) ago';
+    } else if (timeAgo.inSeconds >= 1) {
+      return '${timeAgo.inSeconds} second(s) ago';
+    } else {
+      return 'just now';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           var users = snapshot.data!.docs[index];
+                          Timestamp t = users['lastMessage'];
+                          DateTime parsedDate = t.toDate();
 
                           return InkWell(
                             onTap: () {
@@ -90,9 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ChatTileBody(
                               name: users['name'],
                               image: users['imgUrl'],
-                              //TODO - timeago
-                              lastMessage: DateTime.parse(
-                                  users['lastMessage'].toDate().toString()),
+                              lastMessage: convertToAgo(parsedDate),
                               message: '',
                             ),
                           );
