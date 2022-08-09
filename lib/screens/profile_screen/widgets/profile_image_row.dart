@@ -1,15 +1,30 @@
+import 'dart:io';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/reusable_bottom_sheet.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProfileImageRow extends StatelessWidget {
+class ProfileImageRow extends StatefulWidget {
   const ProfileImageRow({
     Key? key,
     required this.userData,
   }) : super(key: key);
 
   final dynamic userData;
+
+  @override
+  State<ProfileImageRow> createState() => _ProfileImageRowState();
+}
+
+class _ProfileImageRowState extends State<ProfileImageRow> {
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  File? pickedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +35,17 @@ class ProfileImageRow extends StatelessWidget {
           height: 40,
         ),
         const SizedBox(width: 20),
-        userData['imgUrl'] != null
+        widget.userData['imgUrl'] != null
             ? Stack(children: [
                 CircleAvatar(
                   radius: 64,
-                  //TODO - green vs black
                   backgroundColor: ConstColors.greenCyan,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(userData['imgUrl']),
                     radius: 60,
+                    backgroundImage: pickedImage == null
+                        ? NetworkImage(widget.userData['imgUrl'])
+                            as ImageProvider
+                        : FileImage(pickedImage!),
                   ),
                 ),
                 Positioned(
@@ -42,14 +59,31 @@ class ProfileImageRow extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return ReusableBottomSheet(
-                              fromCamera: () {},
-                              fromGallery: () {},
+                              fromCamera: () async {
+                                await pickImageFromCamera()
+                                    .then((value) => Navigator.pop(context));
+                                if (pickedImage != null) {
+                                  var imagePath = await FirebaseService()
+                                      .uploadImageToStorage(pickedImage!);
+                                  FirebaseService().updateImg(imagePath!);
+                                }
+                              },
+                              fromGallery: () async {
+                                await pickImageFromGallery()
+                                    .then((value) => Navigator.pop(context));
+
+                                if (pickedImage != null) {
+                                  var imagePath = await FirebaseService()
+                                      .uploadImageToStorage(pickedImage!);
+                                  FirebaseService().updateImg(imagePath!);
+                                }
+                              },
                             );
                           });
                     },
                     child: const AddImageIcon(
                       iconSize: 22,
-                      backgroundColor: ConstColors.darkerCyan,
+                      backgroundColor: ConstColors.white,
                       iconColor: ConstColors.black87,
                     ),
                   ),
@@ -66,5 +100,21 @@ class ProfileImageRow extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future pickImageFromCamera() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+    setState(() {
+      pickedImage = File(image!.path);
+    });
+  }
+
+  Future pickImageFromGallery() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      pickedImage = File(image!.path);
+    });
   }
 }

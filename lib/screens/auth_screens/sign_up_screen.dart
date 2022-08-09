@@ -8,6 +8,7 @@ import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -196,7 +197,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         password: passwordController.text,
                         confirmPassword: confirmController.text,
                         profileImg: pickedImage!,
-                      );
+                      ).then((value) => Navigator.pushNamedAndRemoveUntil(
+                          context, AppRouter.homeScreen, (route) => false));
                     }
                   })
           ]),
@@ -216,8 +218,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) =>
-                saveUserInfoToFirestore(userName, email, profileImg));
+            .then((value) => FirebaseService()
+                .saveUserInfoToFirestore(userName, email, profileImg));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -238,23 +240,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void saveUserInfoToFirestore(
-      String userName, String email, File profileImg) async {
-    User? user = auth.currentUser;
-
-    String imageURL = await uploadImageToStorage(profileImg);
-    UserModel model = UserModel(
-      uid: auth.currentUser!.uid,
-      name: userName,
-      email: email,
-      imgUrl: imageURL,
-    );
-
-    await firestore.collection('users').doc(user!.uid).set(model.toJson()).then(
-        (value) => Navigator.pushNamedAndRemoveUntil(
-            context, AppRouter.homeScreen, (route) => false));
-  }
-
   void pickImageFromCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
@@ -269,14 +254,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       pickedImage = File(image!.path);
     });
-  }
-
-  Future<String> uploadImageToStorage(File imgUrl) async {
-    Reference reference =
-        storage.ref().child('images').child(auth.currentUser!.uid);
-    UploadTask task = reference.putFile(imgUrl);
-    TaskSnapshot snap = await task;
-    String imageUrl = await snap.ref.getDownloadURL();
-    return imageUrl;
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
@@ -51,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, AsyncSnapshot snapshot) {
             var userData = snapshot.data;
             if (snapshot.hasError) {
-              log('Error');
+              return const Text('Some error occured');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();

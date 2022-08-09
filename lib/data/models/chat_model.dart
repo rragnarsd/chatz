@@ -22,7 +22,7 @@ class Message {
         imgUrl: json['imgUrl'],
         name: json['name'],
         message: json['message'],
-        createdAt: json['createdAt'].toDate(),
+        createdAt: DateTime.parse(json['createdAt']),
       );
 
   Map<String, dynamic> toJson() => {
