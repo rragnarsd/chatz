@@ -12,10 +12,11 @@ class FirebaseService {
   String? userImg;
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
-    return firestore
+    var users = firestore
         .collection('users')
-        .orderBy('email', descending: true)
+        .where('uid', isNotEqualTo: auth.currentUser!.uid)
         .snapshots();
+    return users;
   }
 
   Future createChat(String uid, String message) async {

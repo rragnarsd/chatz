@@ -4,6 +4,7 @@ import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,22 +21,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  String convertToAgo(DateTime input) {
-    Duration timeAgo = DateTime.now().difference(input);
-
-    if (timeAgo.inDays >= 1) {
-      return '${timeAgo.inDays} day(s) ago';
-    } else if (timeAgo.inHours >= 1) {
-      return '${timeAgo.inHours} hour(s) ago';
-    } else if (timeAgo.inMinutes >= 1) {
-      return '${timeAgo.inMinutes} minute(s) ago';
-    } else if (timeAgo.inSeconds >= 1) {
-      return '${timeAgo.inSeconds} second(s) ago';
-    } else {
-      return 'just now';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 20),
               StreamBuilder(
-                stream: firestore.collection('users').snapshots(),
+                stream: FirebaseService().getUsers(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(child: Text('No users found'));
@@ -73,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CircularProgressIndicator(),
                     );
                   }
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
@@ -89,29 +75,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           DateTime parsedDate = t.toDate();
 
                           return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return ChatScreen(
-                                    user: UserModel(
-                                        email: users['name'],
-                                        imgUrl: users['imgUrl'],
-                                        lastMessage:
-                                            users['lastMessage'].toDate(),
-                                        name: users['name'],
-                                        uid: users['uid']),
-                                  );
-                                }),
-                              );
-                            },
-                            child: ChatTileBody(
-                              name: users['name'],
-                              image: users['imgUrl'],
-                              lastMessage: convertToAgo(parsedDate),
-                              message: '',
-                            ),
-                          );
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return ChatScreen(
+                                      user: UserModel(
+                                          email: users['name'],
+                                          imgUrl: users['imgUrl'],
+                                          lastMessage:
+                                              users['lastMessage'].toDate(),
+                                          name: users['name'],
+                                          uid: users['uid']),
+                                    );
+                                  }),
+                                );
+                              },
+                              child: ChatTileBody(
+                                name: users['name'],
+                                image: users['imgUrl'],
+                                lastMessage: convertToAgo(parsedDate),
+                                message: '',
+                              ));
                         },
                       ),
                     ),
@@ -146,5 +131,21 @@ class _HomeScreenState extends State<HomeScreen> {
             }),
       ),
     );
+  }
+
+  String convertToAgo(DateTime input) {
+    Duration timeAgo = DateTime.now().difference(input);
+
+    if (timeAgo.inDays >= 1) {
+      return '${timeAgo.inDays} day(s) ago';
+    } else if (timeAgo.inHours >= 1) {
+      return '${timeAgo.inHours} hour(s) ago';
+    } else if (timeAgo.inMinutes >= 1) {
+      return '${timeAgo.inMinutes} minute(s) ago';
+    } else if (timeAgo.inSeconds >= 1) {
+      return '${timeAgo.inSeconds} second(s) ago';
+    } else {
+      return 'just now';
+    }
   }
 }
