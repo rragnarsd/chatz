@@ -1,4 +1,6 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/services/firebase.dart';
@@ -74,9 +76,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   return Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GridView(
                           physics: const BouncingScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                            childAspectRatio: 0.9,
+                          ),
                           children: [
                             ...snapshot.data!.docs
                                 .where((user) => user['name']
@@ -84,46 +93,86 @@ class _SearchScreenState extends State<SearchScreen> {
                                     .toLowerCase()
                                     .contains(controller.text.toLowerCase()))
                                 .map((info) {
-                              final String name = info['name'];
-                              final String imgUrl = info['imgUrl'];
-                              final String email = info['email'];
-                              final String uid = info['uid'];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: Card(
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) {
-                                          return ChatScreen(
-                                            chatUser: uid,
-                                            currentUser: auth.currentUser!.uid,
-                                          );
-                                        }),
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return ChatScreen(
+                                        chatUser: info['uid'],
+                                        currentUser: auth.currentUser!.uid,
                                       );
-                                    },
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(13),
+                                    }),
+                                  );
+                                },
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: 5,
+                                      right: 4,
+                                      top: 8,
+                                      child: Container(
+                                        height: 180,
+                                        decoration:
+                                            UIStyles.chatDecoration.copyWith(
+                                          color: ConstColors.lightShadeOrange,
+                                        ),
                                       ),
                                     ),
-                                    title: Text(name),
-                                    subtitle: Text(email),
-                                    trailing: IconButton(
-                                      icon: const Icon(
-                                        Icons.message,
+                                    Positioned(
+                                      left: 0,
+                                      bottom: 13,
+                                      child: Container(
+                                        height: 180,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        padding: const EdgeInsets.all(10),
+                                        decoration:
+                                            UIStyles.chatDecoration.copyWith(
+                                          color: ConstColors.white,
+                                        ),
+                                        child: Column(children: [
+                                          Container(
+                                            width: 140,
+                                            height: 80,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 1.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  info['imgUrl'],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                info['name'],
+                                                style: TextStyles.style14,
+                                              ),
+                                              const SizedBox(width: 10),
+                                              const Icon(
+                                                Icons.chat_outlined,
+                                                color: ConstColors.redOrange,
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            info['email'],
+                                            style: TextStyles.style14Bold,
+                                          ),
+                                        ]),
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                    leading: Image.network(
-                                      imgUrl,
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                    )
+                                  ],
                                 ),
                               );
                             })

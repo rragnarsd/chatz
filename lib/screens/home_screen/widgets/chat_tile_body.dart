@@ -19,8 +19,8 @@ class ChatTileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(clipBehavior: Clip.none, children: [
       Positioned(
-        left: 20,
-        right: 1,
+        left: 4,
+        right: -4,
         top: 8,
         child: Container(
           height: 80,
