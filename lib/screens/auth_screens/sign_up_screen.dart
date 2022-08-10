@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
-import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 

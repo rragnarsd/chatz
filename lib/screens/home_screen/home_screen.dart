@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {},
           icon: const Icon(Icons.menu),
         ),
-        title: const Text('Your Chatz'),
+        title: const Text('Chatz'),
         withProfile: true,
       ),
       body: SafeArea(
@@ -49,12 +49,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 StreamBuilder(
                   stream: FirebaseService().getChat(auth.currentUser!.uid),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(child: Text('No chats yet'));
-                    }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    if (snapshot.data!.docs.isEmpty) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('No messages yet'),
+                              Text('Click on the plus button!'),
+                            ],
+                          ),
+                        ),
                       );
                     }
 
