@@ -1,5 +1,4 @@
 import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/home_screen/widgets/floating_action_btn.dart';
@@ -55,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
 
-                    if (snapshot.data!.docs.isEmpty) {
+                    if (!snapshot.hasData) {
                       return SizedBox(
                         height: MediaQuery.of(context).size.height * 0.6,
                         child: Center(
@@ -86,28 +85,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             DateTime parsedDate = t.toDate();
 
                             return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return ChatScreen(
-                                        user: UserModel(
-                                            email: message['name'],
-                                            imgUrl: message['imgUrl'],
-                                            lastMessage:
-                                                message['createdAt'].toDate(),
-                                            name: message['name'],
-                                            uid: message['uid']),
-                                      );
-                                    }),
-                                  );
-                                },
-                                child: ChatTileBody(
-                                  name: message['name'],
-                                  image: message['imgUrl'],
-                                  lastMessage: convertToAgo(parsedDate),
-                                  message: message['message'],
-                                ));
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return ChatScreen(
+                                      chatUser: message['receiver'],
+                                      currentUser: auth.currentUser!.uid,
+                                    );
+                                  }),
+                                );
+                              },
+                              child: ChatTileBody(
+                                name: 'Sender',
+                                lastMessage: convertToAgo(parsedDate),
+                                message: message['message'],
+                              ),
+                            );
                           },
                         ),
                       ),

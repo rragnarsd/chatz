@@ -58,33 +58,22 @@ class FirebaseService {
 
   //Chats
 
-  Future createChat(String uid, String message) async {
-    final docs = firestore.collection('chats/$uid/messages');
-    User? user = auth.currentUser;
-    uid = user!.uid;
-    email = user.email;
-
-    final DocumentSnapshot userDoc =
-        await firestore.collection('users').doc(uid).get();
-    userName = userDoc.get('name');
-    userImg = userDoc.get('imgUrl');
+  Future chat({required String userId, required String msg}) async {
+    String myId = auth.currentUser!.uid;
 
     final newMessage = Message(
-      message: message,
-      createdAt: DateTime.now(),
-      uid: uid,
-      imgUrl: userImg ?? '',
-      name: userName ?? '',
-    );
-    await docs.add(newMessage.toJson());
-
-    final docUsers = firestore.collection('users');
-    await docUsers.doc(uid).update({'lastMessage': DateTime.now()});
+        message: msg,
+        createdAt: DateTime.now(),
+        sender: myId,
+        receiver: userId,
+        comp: [myId, userId]);
+    await firestore.collection('chats').add(newMessage.toJson());
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getChat(String uid) {
     return firestore
-        .collection('chats/$uid/messages')
+        .collection('chats')
+        .where('comp', arrayContainsAny: [uid, auth.currentUser!.uid])
         .orderBy('createdAt', descending: true)
         .snapshots();
   }

@@ -1,5 +1,4 @@
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/screens/chat_screen/widgets/chat_rich_text.dart';
 import 'package:chatz/screens/chat_screen/widgets/chats_widget.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
@@ -13,12 +12,12 @@ import 'package:flutter/material.dart';
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
     Key? key,
-    required this.user,
-    this.idUser,
+    required this.currentUser,
+    required this.chatUser,
   }) : super(key: key);
 
-  final UserModel user;
-  final String? idUser;
+  final String currentUser;
+  final String chatUser;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -28,9 +27,9 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  String message = '';
-
   final TextEditingController controller = TextEditingController();
+
+  String message = '';
 
   @override
   void dispose() {
@@ -55,21 +54,22 @@ class _ChatScreenState extends State<ChatScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              ChatsWidget(auth: auth, idUser: widget.user.uid!),
+              ChatsWidget(widget: widget, auth: auth),
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),
                 child: Row(
                   children: [
                     Expanded(
-                        child: ChatSearchBox(
-                      controller: controller,
-                      hintText: 'Type your message...',
-                      function: (value) {
-                        setState(() {
-                          message = value;
-                        });
-                      },
-                    )),
+                      child: ChatSearchBox(
+                        controller: controller,
+                        hintText: 'Type your message...',
+                        function: (value) {
+                          setState(() {
+                            message = value;
+                          });
+                        },
+                      ),
+                    ),
                     const SizedBox(width: 15),
                     Container(
                       decoration: UIStyles.chatDecoration,
@@ -77,9 +77,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         onPressed: () {
                           message.trim().isEmpty
                               ? null
-                              : FirebaseService().createChat(
-                                  widget.user.uid!,
-                                  message,
+                              : FirebaseService().chat(
+                                  userId: widget.chatUser,
+                                  msg: message,
                                 );
                           controller.clear();
                         },
@@ -96,4 +96,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-

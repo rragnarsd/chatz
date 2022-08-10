@@ -3,32 +3,32 @@ class MessageField {
 }
 
 class Message {
-  final String uid;
-  final String imgUrl;
-  final String name;
+  final String sender;
+  final String receiver;
+  final List<String> comp;
   final String message;
   final DateTime createdAt;
 
   Message({
-    required this.uid,
-    required this.imgUrl,
-    required this.name,
+    required this.sender,
+    required this.receiver,
+    required this.comp,
     required this.message,
     required this.createdAt,
   });
 
   static Message fromJson(Map<String, dynamic> json) => Message(
-        uid: json['uid'],
-        imgUrl: json['imgUrl'],
-        name: json['name'],
+        sender: json['sender'],
+        receiver: json['receiver'],
+        comp: json['comp'],
         message: json['message'],
         createdAt: DateTime.parse(json['createdAt']),
       );
 
   Map<String, dynamic> toJson() => {
-        'uid': uid,
-        'imgUrl': imgUrl,
-        'name': name,
+        'sender': sender,
+        'receiver': receiver,
+        'comp': comp,
         'message': message,
         'createdAt': createdAt,
       };

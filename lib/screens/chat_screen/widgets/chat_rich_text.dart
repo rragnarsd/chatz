@@ -19,7 +19,8 @@ class ChatRichText extends StatelessWidget {
         style: TextStyles.style16.copyWith(color: ConstColors.black87),
         children: <TextSpan>[
           TextSpan(
-            text: '${widget.user.name}',
+            text: 'ChatUser',
+            // text: '${widget.user.name}',
             style: TextStyles.style16Bold.copyWith(color: ConstColors.black87),
           ),
         ],

@@ -25,31 +25,33 @@ class LandingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Column(children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome to Chatz',
-                style: TextStyles.style18Bold,
-              ),
-              const LandingCarousel(),
-              const Text('it is for free!', style: TextStyles.styleRandomOne),
-              const SizedBox(height: 10),
-              ElevatedBtn(
-                text: 'Sign in',
-                btnColor: ConstColors.redOrange,
-                textColor: ConstColors.black87,
-                onTapped: () =>
-                    Navigator.pushNamed(context, AppRouter.signIncreen),
-              ),
-              const SizedBox(height: 20),
-              ElevatedBtn(
-                text: 'Create an Account',
-                btnColor: ConstColors.lightBlueCyan,
-                textColor: ConstColors.white,
-                onTapped: () =>
-                    Navigator.pushNamed(context, AppRouter.signUpcreen),
-              ),
-            ]),
+            SingleChildScrollView(
+              child: Column(children: [
+                const SizedBox(height: 20),
+                const Text(
+                  'Welcome to Chatz',
+                  style: TextStyles.style18Bold,
+                ),
+                const LandingCarousel(),
+                const Text('it is for free!', style: TextStyles.styleRandomOne),
+                const SizedBox(height: 10),
+                ElevatedBtn(
+                  text: 'Sign in',
+                  btnColor: ConstColors.redOrange,
+                  textColor: ConstColors.black87,
+                  onTapped: () =>
+                      Navigator.pushNamed(context, AppRouter.signIncreen),
+                ),
+                const SizedBox(height: 20),
+                ElevatedBtn(
+                  text: 'Create an Account',
+                  btnColor: ConstColors.lightBlueCyan,
+                  textColor: ConstColors.white,
+                  onTapped: () =>
+                      Navigator.pushNamed(context, AppRouter.signUpcreen),
+                ),
+              ]),
+            ),
           ]),
         ),
       ),

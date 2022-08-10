@@ -1,10 +1,10 @@
 import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/data/models/user_model.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/search_box.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,6 +17,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   var searchName = '';
   final TextEditingController controller = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -93,17 +94,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                 child: Card(
                                   child: ListTile(
                                     onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return ChatScreen(
-                                          user: UserModel(
-                                              email: email,
-                                              imgUrl: imgUrl,
-                                              lastMessage: DateTime.now(),
-                                              name: name,
-                                              uid: uid),
-                                        );
-                                      }));
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return ChatScreen(
+                                            chatUser: uid,
+                                            currentUser: auth.currentUser!.uid,
+                                          );
+                                        }),
+                                      );
                                     },
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -113,12 +112,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                     title: Text(name),
                                     subtitle: Text(email),
                                     trailing: IconButton(
-                                      icon: const Icon(Icons.message),
+                                      icon: const Icon(
+                                        Icons.message,
+                                      ),
                                       onPressed: () {},
                                     ),
                                     leading: Image.network(
-                                      imgUrl ??
-                                          'https://storyset.com/illustration/curly-hair/pana',
+                                      imgUrl,
                                       width: 60,
                                       height: 60,
                                       fit: BoxFit.cover,

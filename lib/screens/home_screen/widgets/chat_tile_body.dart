@@ -7,14 +7,12 @@ class ChatTileBody extends StatelessWidget {
   const ChatTileBody({
     Key? key,
     required this.name,
-    required this.image,
     required this.message,
     required this.lastMessage,
   }) : super(key: key);
 
   final String name;
   final String message;
-  final String image;
   final String lastMessage;
 
   @override
@@ -48,9 +46,9 @@ class ChatTileBody extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: ConstColors.shadeOfCyan,
                   ),
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundImage: NetworkImage(image),
+                  child: const CircleAvatar(
+                    radius: 18,
+                    backgroundColor: ConstColors.darkerCyan,
                   )),
               const SizedBox(width: 10),
               Column(
@@ -62,7 +60,7 @@ class ChatTileBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    name,
+                    message,
                     style: TextStyles.style12,
                   ),
                 ],
