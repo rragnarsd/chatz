@@ -16,12 +16,16 @@ class ChatRichText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: 'Your Chat with ',
-        style: TextStyles.style16.copyWith(color: ConstColors.black87),
+        style: TextStyles.style16.copyWith(
+          color: ConstColors.black87,
+        ),
         children: <TextSpan>[
           TextSpan(
             text: 'ChatUser',
             //text: '${widget.chatUser}',
-            style: TextStyles.style16Bold.copyWith(color: ConstColors.black87),
+            style: TextStyles.style16Bold.copyWith(
+              color: ConstColors.black87,
+            ),
           ),
         ],
       ),

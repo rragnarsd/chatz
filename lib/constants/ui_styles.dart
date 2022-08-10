@@ -24,6 +24,31 @@ class UIStyles {
   static BoxDecoration profileDecoration = BoxDecoration(
     border: Border.all(width: 1.5),
     borderRadius: BorderRadius.circular(13),
+    boxShadow: [
+      boxShadowPositive,
+      boxShadowNegative,
+    ],
+  );
+
+  static BoxDecoration profileDecorationAvatar = BoxDecoration(
+    color: Colors.white,
+    shape: BoxShape.circle,
+    boxShadow: [
+      boxShadowPositive,
+      boxShadowNegative,
+    ],
+  );
+
+  static BoxShadow boxShadowPositive = BoxShadow(
+    color: Colors.grey.withOpacity(0.5),
+    blurRadius: 5,
+    offset: const Offset(4, 4),
+  );
+
+  static BoxShadow boxShadowNegative = const BoxShadow(
+    color: Colors.white,
+    blurRadius: 8,
+    offset: Offset(-4, -4),
   );
 
   //Auth

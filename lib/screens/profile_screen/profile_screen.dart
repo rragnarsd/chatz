@@ -1,3 +1,4 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
@@ -67,7 +68,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.9,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: UIStyles.profileDecoration,
+                      decoration: UIStyles.profileDecoration.copyWith(
+                        color: ConstColors.white,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

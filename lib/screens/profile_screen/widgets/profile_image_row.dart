@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/reusable_bottom_sheet.dart';
@@ -37,15 +38,18 @@ class _ProfileImageRowState extends State<ProfileImageRow> {
         const SizedBox(width: 20),
         widget.userData['imgUrl'] != null
             ? Stack(children: [
-                CircleAvatar(
-                  radius: 64,
-                  backgroundColor: ConstColors.greenCyan,
+                Container(
+                  decoration: UIStyles.profileDecorationAvatar,
                   child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: pickedImage == null
-                        ? NetworkImage(widget.userData['imgUrl'])
-                            as ImageProvider
-                        : FileImage(pickedImage!),
+                    radius: 64,
+                    backgroundColor: ConstColors.greenCyan,
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: pickedImage == null
+                          ? NetworkImage(widget.userData['imgUrl'])
+                              as ImageProvider
+                          : FileImage(pickedImage!),
+                    ),
                   ),
                 ),
                 Positioned(
