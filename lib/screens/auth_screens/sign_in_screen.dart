@@ -1,5 +1,8 @@
+import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
+import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 
 import 'package:chatz/widgets/text_field.dart';
@@ -85,6 +88,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             return null;
                           }),
                       const SizedBox(height: 20),
+                      AuthButton(
+                        mainText: 'No account yet? ',
+                        subText: 'Register here!',
+                        function: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRouter.signUpcreen,
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -132,3 +145,5 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 }
+
+

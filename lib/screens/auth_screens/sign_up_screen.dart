@@ -5,6 +5,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
+import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/services/firebase.dart';
@@ -180,6 +181,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                     ),
+                    const SizedBox(height: 20),
+                    AuthButton(
+                      mainText: 'Already registered? ',
+                      subText: 'Login here!',
+                      function: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRouter.signIncreen,
+                        );
+                      },
+                    )
                   ]),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomBarItems extends StatelessWidget {
   const BottomBarItems({
@@ -39,7 +40,7 @@ class BottomBarItems extends StatelessWidget {
           height: 40,
           btnColor: ConstColors.lightBlueCyan,
           iconColor: ConstColors.white,
-          icon: Icons.arrow_forward,
+          icon: const FaIcon(FontAwesomeIcons.arrowRight),
           onTapped: () => onTapped(),
         ),
       ]),

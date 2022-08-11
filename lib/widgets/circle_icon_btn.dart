@@ -14,7 +14,7 @@ class CircleIconBtn extends StatelessWidget {
   final Color btnColor;
   final Color iconColor;
   final double height;
-  final IconData icon;
+  final Widget icon;
   final Function onTapped;
 
   @override
@@ -31,10 +31,7 @@ class CircleIconBtn extends StatelessWidget {
           ),
           primary: btnColor,
         ),
-        child: Icon(
-          icon,
-          color: iconColor,
-        ),
+        child: icon,
         onPressed: () => onTapped(),
       ),
     );

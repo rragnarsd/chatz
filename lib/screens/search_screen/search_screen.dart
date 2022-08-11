@@ -54,6 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       padding: EdgeInsets.only(left: 20.0),
                       child: FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
+                        color: ConstColors.black54,
                       ),
                     ),
                   ),

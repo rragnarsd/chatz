@@ -20,7 +20,10 @@ class FloatingActionButtonAdd extends StatelessWidget {
           btnColor: ConstColors.redOrange,
           iconColor: Colors.black,
           height: 56,
-          icon: Icons.add,
+          icon: const FaIcon(
+            FontAwesomeIcons.plus,
+            color: ConstColors.black,
+          ),
           onTapped: () {
             Navigator.push(
               context,
