@@ -22,17 +22,11 @@ class ChatsWidget extends StatelessWidget {
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
+            return const Expanded(
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Say hi!',
-                      style: TextStyles.style14,
-                    ),
-                  ],
+                child: Text(
+                  'Say hi!',
+                  style: TextStyles.style14,
                 ),
               ),
             );

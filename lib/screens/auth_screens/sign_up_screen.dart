@@ -202,53 +202,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   subText: 'Your data must be real',
                   onTapped: () {
                     if (_formKey.currentState!.validate()) {
-                      registerUser(
-                        userName: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                        confirmPassword: confirmController.text,
-                        profileImg: pickedImage!,
-                      ).then((value) => Navigator.pushNamedAndRemoveUntil(
-                          context, AppRouter.homeScreen, (route) => false));
+                      FirebaseService()
+                          .registerUser(
+                              userName: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              confirmPassword: confirmController.text,
+                              profileImg: pickedImage!,
+                              context: context)
+                          .then((value) => Navigator.pushNamedAndRemoveUntil(
+                              context, AppRouter.homeScreen, (route) => false));
                     }
                   })
           ]),
         ),
       ),
     );
-  }
-
-  Future registerUser({
-    required String userName,
-    required String email,
-    required String password,
-    required String confirmPassword,
-    required File profileImg,
-  }) async {
-    if (password == confirmPassword) {
-      try {
-        await auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => FirebaseService()
-                .saveUserInfoToFirestore(userName, email, profileImg));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(validations.weakPassword),
-            ),
-          );
-        } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(validations.accountExist),
-            ),
-          );
-        }
-      }
-    } else {
-      log('Passwords do not match');
-    }
   }
 
   void pickImageFromCamera() async {

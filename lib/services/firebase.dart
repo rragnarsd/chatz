@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:chatz/constants/validations.dart';
 import 'package:chatz/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 class FirebaseService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -17,6 +19,61 @@ class FirebaseService {
   String? userImg;
 
   //Auth
+
+  Future loginUser(
+      {required String email, required String password, context}) async {
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(Validations().noUserWithEmail),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(Validations().wrongPassword),
+        ));
+      }
+    }
+  }
+
+  Future registerUser(
+      {required String userName,
+      required String email,
+      required String password,
+      required String confirmPassword,
+      required File profileImg,
+      context}) async {
+    if (password == confirmPassword) {
+      try {
+        await auth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) => FirebaseService()
+                .saveUserInfoToFirestore(userName, email, profileImg));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(Validations().weakPassword),
+            ),
+          );
+        } else if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(Validations().accountExist),
+            ),
+          );
+        }
+      }
+    } else {
+      log('Passwords do not match');
+    }
+  }
 
   void saveUserInfoToFirestore(
       String userName, String email, File profileImg) async {

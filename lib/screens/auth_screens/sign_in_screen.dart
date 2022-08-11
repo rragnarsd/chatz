@@ -2,6 +2,7 @@ import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
+import 'package:chatz/services/firebase.dart';
 
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -107,10 +108,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   subText: '...and real',
                   onTapped: () {
                     if (_formKey.currentState!.validate()) {
-                      loginUser(
-                        emailController.text,
-                        passwordController.text,
-                      );
+                      FirebaseService()
+                          .loginUser(
+                            email: emailController.text,
+                            password: passwordController.text,
+                            context: context,
+                          )
+                          .then((value) => Navigator.pushNamedAndRemoveUntil(
+                              context, AppRouter.homeScreen, (route) => false));
                     }
                   })
           ]),
@@ -118,30 +123,4 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-
-  Future loginUser(String email, String password) async {
-    try {
-      await auth
-          .signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
-          .then((value) =>
-              Navigator.pushReplacementNamed(context, AppRouter.homeScreen));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(validations.noUserWithEmail),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(validations.wrongPassword),
-        ));
-      }
-    }
-  }
 }
-
-
