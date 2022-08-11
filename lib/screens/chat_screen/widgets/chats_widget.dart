@@ -4,6 +4,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:chatz/utils/functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,9 @@ class ChatsWidget extends StatelessWidget {
                       log(message['sender']);
                       log(message['receiver']);
 
+                      Timestamp t = message['createdAt'];
+                      DateTime parsedDate = t.toDate();
+
                       return Row(
                         mainAxisAlignment: currentUser
                             ? MainAxisAlignment.end
@@ -71,27 +75,41 @@ class ChatsWidget extends StatelessWidget {
                               backgroundColor: Colors.grey.shade400,
                             ),
                           const SizedBox(width: 10),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            constraints: const BoxConstraints(maxWidth: 160),
-                            decoration: BoxDecoration(
-                              color: currentUser
-                                  ? ConstColors.greenCyan
-                                  : Colors.grey.shade300,
-                              border: Border.all(),
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(13),
-                                topRight: const Radius.circular(13),
-                                bottomLeft: currentUser
-                                    ? const Radius.circular(13)
-                                    : Radius.zero,
-                                bottomRight: !currentUser
-                                    ? const Radius.circular(13)
-                                    : Radius.zero,
+                          Column(
+                            crossAxisAlignment: currentUser
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                constraints:
+                                    const BoxConstraints(maxWidth: 160),
+                                decoration: BoxDecoration(
+                                  color: currentUser
+                                      ? ConstColors.greenCyan
+                                      : Colors.grey.shade300,
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(13),
+                                    topRight: const Radius.circular(13),
+                                    bottomLeft: currentUser
+                                        ? const Radius.circular(13)
+                                        : Radius.zero,
+                                    bottomRight: !currentUser
+                                        ? const Radius.circular(13)
+                                        : Radius.zero,
+                                  ),
+                                ),
+                                child: Text(message['message']),
                               ),
-                            ),
-                            child: Text(message['message']),
-                          )
+                              const SizedBox(height: 5),
+                              Text(
+                                Functions().convertToAgo(parsedDate),
+                                style:
+                                    TextStyles.style12.copyWith(fontSize: 10),
+                              )
+                            ],
+                          ),
                         ],
                       );
                     } else {
@@ -107,4 +125,6 @@ class ChatsWidget extends StatelessWidget {
           return Container();
         });
   }
+
+
 }

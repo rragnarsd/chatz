@@ -3,6 +3,7 @@ import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
 import 'package:chatz/screens/home_screen/widgets/floating_action_btn.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:chatz/utils/functions.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -98,7 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               child: ChatTileBody(
                                 name: 'Sender',
-                                lastMessage: convertToAgo(parsedDate),
+                                lastMessage:
+                                    Functions().convertToAgo(parsedDate),
                                 message: message['message'],
                               ),
                             );
@@ -115,21 +117,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: const FloatingActionButtonAdd(),
     );
-  }
-
-  String convertToAgo(DateTime input) {
-    Duration timeAgo = DateTime.now().difference(input);
-
-    if (timeAgo.inDays >= 1) {
-      return '${timeAgo.inDays} day(s) ago';
-    } else if (timeAgo.inHours >= 1) {
-      return '${timeAgo.inHours} hour(s) ago';
-    } else if (timeAgo.inMinutes >= 1) {
-      return '${timeAgo.inMinutes} minute(s) ago';
-    } else if (timeAgo.inSeconds >= 1) {
-      return '${timeAgo.inSeconds} second(s) ago';
-    } else {
-      return 'just now';
-    }
   }
 }
