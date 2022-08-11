@@ -41,6 +41,14 @@ class FirebaseService {
 
   //Users
 
+  Future<DocumentSnapshot<Map<String, dynamic>>> getCurrentUser() {
+    var userInfo = firestore
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return userInfo;
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
     var users = firestore
         .collection('users')
