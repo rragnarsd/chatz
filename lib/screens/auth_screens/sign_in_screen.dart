@@ -1,5 +1,3 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';

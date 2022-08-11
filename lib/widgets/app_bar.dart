@@ -11,12 +11,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
     Key? key,
-    required this.leading,
+    this.leading,
     required this.title,
     this.withProfile = true,
   }) : super(key: key);
 
-  final Widget leading;
+  final Widget? leading;
   final Widget title;
   final bool? withProfile;
 

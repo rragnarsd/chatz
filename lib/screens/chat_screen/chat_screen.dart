@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
@@ -90,7 +88,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                 );
                           controller.clear();
                         },
-                        icon: const FaIcon(FontAwesomeIcons.paperPlane),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.paperPlane,
+                        ),
                       ),
                     )
                   ],

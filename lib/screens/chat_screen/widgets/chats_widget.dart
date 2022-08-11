@@ -21,12 +21,18 @@ class ChatsWidget extends StatelessWidget {
             );
           }
 
-          if (!snapshot.hasData) {
-            return const Expanded(
+          if (snapshot.data!.docs.isEmpty) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
               child: Center(
-                child: Text(
-                  'Say hi!',
-                  style: TextStyles.style14,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Say hi!',
+                      style: TextStyles.style14,
+                    ),
+                  ],
                 ),
               ),
             );
@@ -40,17 +46,10 @@ class ChatsWidget extends StatelessWidget {
                   reverse: true,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    final message = snapshot.data!.docs[index];
-
-                    if (message['sender'] == auth.currentUser!.uid ||
-                        message['receiver'] == auth.currentUser!.uid ||
-                        message['sender'] == widget.chatUser ||
-                        message['receiver'] == widget.chatUser) {
+                    if (snapshot.hasData) {
+                      final message = snapshot.data!.docs[index];
                       var currentUser =
-                          message['sender'] == auth.currentUser!.uid;
-
-                      log(message['sender']);
-                      log(message['receiver']);
+                          message['user_id'] == auth.currentUser!.uid;
 
                       Timestamp t = message['createdAt'];
                       DateTime parsedDate = t.toDate();
@@ -116,6 +115,4 @@ class ChatsWidget extends StatelessWidget {
           return Container();
         });
   }
-
-
 }

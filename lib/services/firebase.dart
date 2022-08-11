@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:chatz/data/models/chat_model.dart';
 import 'package:chatz/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,20 +68,32 @@ class FirebaseService {
   Future chat({required String userId, required String msg}) async {
     String myId = auth.currentUser!.uid;
 
-    final newMessage = Message(
-        message: msg,
-        createdAt: DateTime.now(),
-        sender: myId,
-        receiver: userId,
-        comp: [myId, userId]);
-    await firestore.collection('chats').add(newMessage.toJson());
+    var currentTime = DateTime.now();
+    await firestore.collection('chats/$myId/messages').add({
+      "conversation_id": userId,
+      "user_id": myId,
+      "message": msg,
+      "createdAt": currentTime
+    });
+    await firestore.collection('chats/$userId/messages').add({
+      "conversation_id": myId,
+      "user_id": myId,
+      "message": msg,
+      "createdAt": currentTime
+    });
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getChat(String uid) {
     return firestore
-        .collection('chats')
-        .where('comp', arrayContainsAny: [uid, auth.currentUser!.uid])
+        .collection('chats/${auth.currentUser!.uid}/messages')
+        .where('conversation_id', isEqualTo: uid)
         .orderBy('createdAt', descending: true)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChats(String uid) {
+    return firestore
+        .collection('chats/${auth.currentUser!.uid}/messages')
         .snapshots();
   }
 

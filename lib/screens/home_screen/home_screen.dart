@@ -11,6 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 part './widgets/chat_tile_body.dart';
 part './widgets/floating_action_btn.dart';
@@ -31,12 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const FaIcon(FontAwesomeIcons.ellipsis),
+        title: Text(
+          'Chatz',
+          style: GoogleFonts.boogaloo().copyWith(
+            color: ConstColors.black87,
+            fontSize: 30,
+          ),
         ),
-        title: const Text('Chatz'),
-        withProfile: true,
       ),
       body: SafeArea(
         child: SizedBox(
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 StreamBuilder(
-                  stream: FirebaseService().getChat(auth.currentUser!.uid),
+                  stream: FirebaseService().getChats(auth.currentUser!.uid),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
 
-                    if (!snapshot.hasData) {
+                    if (snapshot.data!.docs.isEmpty) {
                       return SizedBox(
                         height: MediaQuery.of(context).size.height * 0.6,
                         child: Center(
@@ -98,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(builder: (context) {
                                     return ChatScreen(
-                                      chatUser: message['receiver'],
+                                      chatUser: message['conversation_id'],
                                       currentUser: auth.currentUser!.uid,
                                     );
                                   }),
