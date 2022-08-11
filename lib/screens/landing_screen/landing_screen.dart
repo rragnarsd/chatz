@@ -1,9 +1,13 @@
+import 'package:chatz/constants/ui_styles.dart';
+import 'package:flutter/material.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/routes/router.dart';
-import 'package:chatz/screens/landing_screen/widgets/elevated_btn.dart';
-import 'package:chatz/screens/landing_screen/widgets/landing_carousel.dart';
-import 'package:flutter/material.dart';
+
+part 'widgets/carousel.dart';
+part 'widgets/elevated_btn.dart';
+part 'widgets/landing_carousel.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);

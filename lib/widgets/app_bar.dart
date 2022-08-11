@@ -6,6 +6,7 @@ import 'package:chatz/widgets/reusable_elevated_button.dart';
 import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
@@ -49,10 +50,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             radius: 20,
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor: ConstColors.darkerCyan,
-                              backgroundImage: NetworkImage(imgUrl),
+                            child: Hero(
+                              tag: 'profileImg',
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(imgUrl),
+                              ),
                             ),
                           ),
                         ))
@@ -86,7 +89,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.logout),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.arrowRightFromBracket,
+                        ),
                       )
               ],
               title: title,

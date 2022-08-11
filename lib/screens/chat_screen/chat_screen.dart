@@ -1,13 +1,20 @@
+import 'dart:developer';
+
+import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/screens/chat_screen/widgets/chat_rich_text.dart';
-import 'package:chatz/screens/chat_screen/widgets/chats_widget.dart';
-import 'package:chatz/screens/home_screen/widgets/search_box.dart';
+import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:chatz/utils/functions.dart';
 
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+part './widgets/chats_widget.dart';
+part './widgets/chat_rich_text.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
@@ -43,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: CustomAppbar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
         title: ChatRichText(widget: widget),
         withProfile: true,
@@ -83,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 );
                           controller.clear();
                         },
-                        icon: const Icon(Icons.send),
+                        icon: const FaIcon(FontAwesomeIcons.paperPlane),
                       ),
                     )
                   ],

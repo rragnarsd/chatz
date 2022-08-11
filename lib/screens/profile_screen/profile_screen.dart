@@ -1,14 +1,23 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/screens/profile_screen/widgets/profile_info_row.dart';
-import 'package:chatz/screens/profile_screen/widgets/profile_image_row.dart';
+import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
+import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:chatz/widgets/reusable_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
+part './widgets/profile_image_row.dart';
+part './widgets/profile_info_row.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, this.userData}) : super(key: key);
@@ -39,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: CustomAppbar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
         title: const Text('Your Profile'),
         withProfile: false,
@@ -105,6 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                           ),
                           const Divider(thickness: 1),
+                          const SizedBox(height: 5),
                           ProfileInfoRow(
                             userData: userData,
                             userKey: 'Email:',

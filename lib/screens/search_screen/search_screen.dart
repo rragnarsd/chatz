@@ -2,12 +2,13 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
-import 'package:chatz/screens/home_screen/widgets/search_box.dart';
+import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: CustomAppbar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
         title: const Text('Find friends!'),
       ),
@@ -45,7 +46,18 @@ class _SearchScreenState extends State<SearchScreen> {
               child: ChatSearchBox(
                 controller: controller,
                 hintText: 'Search',
-                isPrefix: const Icon(Icons.search),
+                isPrefix: const SizedBox(
+                  width: 55,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: FaIcon(
+                        FontAwesomeIcons.magnifyingGlass,
+                      ),
+                    ),
+                  ),
+                ),
                 function: (value) {
                   setState(() {
                     FirebaseService().searchUsers(controller.text);
@@ -158,9 +170,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 style: TextStyles.style14,
                                               ),
                                               const SizedBox(width: 10),
-                                              const Icon(
-                                                Icons.chat_outlined,
+                                              const FaIcon(
+                                                FontAwesomeIcons.comment,
                                                 color: ConstColors.redOrange,
+                                                size: 20,
                                               ),
                                             ],
                                           ),

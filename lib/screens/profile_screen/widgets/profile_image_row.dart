@@ -1,14 +1,4 @@
-import 'dart:io';
-
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
-import 'package:chatz/services/firebase.dart';
-import 'package:chatz/widgets/reusable_bottom_sheet.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+part of '../profile_screen.dart';
 
 class ProfileImageRow extends StatefulWidget {
   const ProfileImageRow({
@@ -43,12 +33,15 @@ class _ProfileImageRowState extends State<ProfileImageRow> {
                   child: CircleAvatar(
                     radius: 64,
                     backgroundColor: ConstColors.greenCyan,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: pickedImage == null
-                          ? NetworkImage(widget.userData['imgUrl'])
-                              as ImageProvider
-                          : FileImage(pickedImage!),
+                    child: Hero(
+                      tag: 'userImg',
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: pickedImage == null
+                            ? NetworkImage(widget.userData['imgUrl'])
+                                as ImageProvider
+                            : FileImage(pickedImage!),
+                      ),
                     ),
                   ),
                 ),
@@ -86,7 +79,7 @@ class _ProfileImageRowState extends State<ProfileImageRow> {
                           });
                     },
                     child: const AddImageIcon(
-                      iconSize: 22,
+                      iconSize: 20,
                       backgroundColor: ConstColors.white,
                       iconColor: ConstColors.black87,
                     ),

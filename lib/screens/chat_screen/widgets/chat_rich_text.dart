@@ -1,7 +1,9 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/screens/chat_screen/chat_screen.dart';
-import 'package:flutter/material.dart';
+// import 'package:chatz/constants/colors.dart';
+// import 'package:chatz/constants/text_styles.dart';
+// import 'package:chatz/screens/chat_screen/chat_screen.dart';
+// import 'package:flutter/material.dart';
+
+part of '../chat_screen.dart';
 
 class ChatRichText extends StatelessWidget {
   const ChatRichText({

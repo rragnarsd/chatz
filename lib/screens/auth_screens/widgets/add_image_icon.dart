@@ -1,5 +1,6 @@
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AddImageIcon extends StatelessWidget {
   const AddImageIcon({
@@ -20,9 +21,9 @@ class AddImageIcon extends StatelessWidget {
         color: backgroundColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Icon(
-          Icons.camera_alt,
+        padding: const EdgeInsets.all(5.0),
+        child: FaIcon(
+          FontAwesomeIcons.camera,
           size: iconSize,
           color: iconColor,
         ),

@@ -1,13 +1,4 @@
-import 'dart:developer';
-
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/screens/chat_screen/chat_screen.dart';
-import 'package:chatz/services/firebase.dart';
-import 'package:chatz/utils/functions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+part of '../chat_screen.dart';
 
 class ChatsWidget extends StatelessWidget {
   const ChatsWidget({

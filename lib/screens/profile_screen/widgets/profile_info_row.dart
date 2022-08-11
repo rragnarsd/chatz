@@ -1,6 +1,4 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
-import 'package:flutter/material.dart';
+part of '../profile_screen.dart';
 
 class ProfileInfoRow extends StatelessWidget {
   const ProfileInfoRow({
@@ -40,8 +38,13 @@ class ProfileInfoRow extends StatelessWidget {
             isChangeable == false
                 ? const SizedBox.shrink()
                 : IconButton(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.zero,
                     onPressed: function,
-                    icon: const Icon(Icons.edit, color: ConstColors.darkerCyan),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.penToSquare,
+                      color: ConstColors.darkerCyan,
+                    ),
                   )
           ],
         ),

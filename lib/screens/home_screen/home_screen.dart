@@ -1,13 +1,20 @@
+import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
-import 'package:chatz/screens/home_screen/widgets/chat_tile_body.dart';
-import 'package:chatz/screens/home_screen/widgets/floating_action_btn.dart';
+import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
 import 'package:chatz/widgets/app_bar.dart';
+import 'package:chatz/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+part './widgets/chat_tile_body.dart';
+part './widgets/floating_action_btn.dart';
+part './widgets/search_box.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CustomAppbar(
         leading: IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.menu),
+          icon: const FaIcon(FontAwesomeIcons.ellipsis),
         ),
         title: const Text('Chatz'),
         withProfile: true,

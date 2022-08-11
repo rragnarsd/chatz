@@ -1,7 +1,4 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/screens/search_screen/search_screen.dart';
-import 'package:chatz/widgets/circle_icon_btn.dart';
-import 'package:flutter/material.dart';
+part of '../home_screen.dart';
 
 class FloatingActionButtonAdd extends StatelessWidget {
   const FloatingActionButtonAdd({

@@ -1,6 +1,4 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/ui_styles.dart';
-import 'package:flutter/material.dart';
+part of '../home_screen.dart';
 
 class ChatSearchBox extends StatelessWidget {
   const ChatSearchBox({
@@ -12,7 +10,7 @@ class ChatSearchBox extends StatelessWidget {
   }) : super(key: key);
 
   final String hintText;
-  final Icon? isPrefix;
+  final Widget? isPrefix;
   final TextEditingController? controller;
   final Function(String)? function;
 

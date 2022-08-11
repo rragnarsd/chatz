@@ -1,7 +1,4 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/constants/ui_styles.dart';
-import 'package:flutter/material.dart';
+part of '../home_screen.dart';
 
 class ChatTileBody extends StatelessWidget {
   const ChatTileBody({

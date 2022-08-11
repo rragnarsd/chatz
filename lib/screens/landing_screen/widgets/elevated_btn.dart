@@ -1,5 +1,4 @@
-import 'package:chatz/constants/colors.dart';
-import 'package:flutter/material.dart';
+part of '../landing_screen.dart';
 
 class ElevatedBtn extends StatelessWidget {
   const ElevatedBtn({
