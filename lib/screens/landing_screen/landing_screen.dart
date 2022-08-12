@@ -1,8 +1,9 @@
-import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
+import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
 
 part 'widgets/carousel.dart';
@@ -32,15 +33,18 @@ class LandingScreen extends StatelessWidget {
             SingleChildScrollView(
               child: Column(children: [
                 const SizedBox(height: 20),
-                const Text(
-                  'Welcome to Chatz',
+                Text(
+                  '${AppLocalizations.of(context)!.welcomeTo} Chatz',
                   style: TextStyles.style18Bold,
                 ),
                 const LandingCarousel(),
-                const Text('it is for free!', style: TextStyles.styleRandomOne),
+                Text(
+                  '${AppLocalizations.of(context)!.itIsFree}!',
+                  style: TextStyles.styleRandomOne,
+                ),
                 const SizedBox(height: 10),
                 ElevatedBtn(
-                  text: 'Sign in',
+                  text: AppLocalizations.of(context)!.signIn,
                   btnColor: ConstColors.redOrange,
                   textColor: ConstColors.black87,
                   onTapped: () =>
@@ -48,7 +52,7 @@ class LandingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedBtn(
-                  text: 'Create an Account',
+                  text: AppLocalizations.of(context)!.register,
                   btnColor: ConstColors.lightBlueCyan,
                   textColor: ConstColors.white,
                   onTapped: () =>

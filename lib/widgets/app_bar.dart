@@ -8,6 +8,7 @@ import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
@@ -69,16 +70,18 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text(
-                                'Are you sure you want to sign out?',
+                              title: Text(
+                                '${AppLocalizations.of(context)!.sureToLogOut}?',
                                 style: TextStyles.style14,
                               ),
                               actions: [
-                                const ReusableOutlineButton(text: 'Cancel'),
+                                ReusableOutlineButton(
+                                    text: AppLocalizations.of(context)!.cancel),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15.0),
                                   child: ReusableElevatedButton(
-                                    text: 'Continue',
+                                    text:
+                                        AppLocalizations.of(context)!.xContinue,
                                     function: () {
                                       FirebaseService().signOut().then(
                                             (value) =>

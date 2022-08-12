@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -50,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
-        title: const Text('Your Profile'),
+        title: Text(AppLocalizations.of(context)!.yourProfile),
         withProfile: false,
       ),
       body: SafeArea(
@@ -59,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, AsyncSnapshot snapshot) {
             var userData = snapshot.data;
             if (snapshot.hasError) {
-              return const Text('Some error occured');
+              return Text(AppLocalizations.of(context)!.someErrorOccured);
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -92,7 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 20),
                           ProfileInfoRow(
                             userData: userData,
-                            userKey: 'Name:',
+                            userKey:
+                                '${AppLocalizations.of(context)!.userName}:',
                             userValue: userData['name'] ?? '',
                             isChangeable: true,
                             function: () {
@@ -101,8 +103,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   builder: (context) {
                                     return ReusableDialog(
                                       nameController: _nameController,
-                                      hintText: 'Enter new name..',
-                                      header: 'Update name',
+                                      hintText:
+                                          '${AppLocalizations.of(context)!.enterNewName}..',
+                                      header: AppLocalizations.of(context)!
+                                          .updateName,
                                       onUpdate: () {
                                         FirebaseService()
                                             .updateName(_nameController.text)
@@ -117,7 +121,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 5),
                           ProfileInfoRow(
                             userData: userData,
-                            userKey: 'Email:',
+                            userKey:
+                                '${AppLocalizations.of(context)!.userEmail}:',
                             userValue: userData['email'] ?? '',
                           ),
                           const SizedBox(height: 5),

@@ -1,3 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
@@ -6,10 +12,6 @@ import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/search_screen/widgets/search_loading.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -37,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
-        title: const Text('Find friends!'),
+        title: Text('${AppLocalizations.of(context)!.findFriends}!'),
       ),
       body: SafeArea(
         child: Column(
@@ -46,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: const EdgeInsets.all(20),
               child: ChatSearchBox(
                 controller: controller,
-                hintText: 'Search',
+                hintText: AppLocalizations.of(context)!.search,
                 isPrefix: const SizedBox(
                   width: 55,
                   child: Align(
@@ -80,9 +82,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           .toLowerCase()
                           .contains(controller.text.toLowerCase()))
                       .isEmpty) {
-                    return const Center(
+                    return Center(
                       child: Text(
-                        'No user found',
+                        AppLocalizations.of(context)!.noUserFound,
                         style: TextStyles.style14,
                       ),
                     );

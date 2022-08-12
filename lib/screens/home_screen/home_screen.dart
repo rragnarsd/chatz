@@ -1,3 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
@@ -8,11 +15,6 @@ import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/circle_icon_btn.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 part './widgets/chat_tile_body.dart';
 part './widgets/floating_action_btn.dart';
@@ -50,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 20),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Text(
-                    'Your messages',
+                  child: Text(
+                    AppLocalizations.of(context)!.yourMessages,
                     style: TextStyles.style16Bold,
                   ),
                 ),
@@ -69,9 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text('No messages yet'),
-                              Text('Click on the plus button!'),
+                            children: [
+                              Text(AppLocalizations.of(context)!.noMessagesYet),
+                              Text(
+                                  '${AppLocalizations.of(context)!.clickOnThePlusButton}!'),
                             ],
                           ),
                         ),

@@ -22,10 +22,10 @@ class ChatsWidget extends StatelessWidget {
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return const Expanded(
+            return Expanded(
               child: Center(
                 child: Text(
-                  'Say hi!',
+                  '${AppLocalizations.of(context)!.sayHi}!',
                   style: TextStyles.style14,
                 ),
               ),

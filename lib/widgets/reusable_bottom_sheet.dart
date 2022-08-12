@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/widgets/reusable_tile.dart';
-import 'package:flutter/material.dart';
 
 class ReusableBottomSheet extends StatelessWidget {
   const ReusableBottomSheet({
@@ -23,19 +25,19 @@ class ReusableBottomSheet extends StatelessWidget {
           ReusableTile(
             icon: Icons.camera_alt,
             iconColor: ConstColors.darkerCyan,
-            text: 'Camera',
+            text: AppLocalizations.of(context)!.camera,
             function: fromCamera,
           ),
           ReusableTile(
             icon: Icons.image,
             iconColor: ConstColors.darkerCyan,
-            text: 'Gallery',
+            text: AppLocalizations.of(context)!.gallery,
             function: fromGallery,
           ),
           ReusableTile(
             icon: Icons.cancel,
             iconColor: Colors.red,
-            text: 'Cancel',
+            text: AppLocalizations.of(context)!.cancel,
             function: () => Navigator.pop(context),
           ),
         ]),

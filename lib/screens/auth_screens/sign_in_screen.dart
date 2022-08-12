@@ -3,6 +3,7 @@ import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:chatz/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -58,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 30),
                       AuthTextField(
-                          labelText: 'Email address',
+                          labelText: AppLocalizations.of(context)!.userEmail,
                           controller: emailController,
                           validator: (val) {
                             if (val!.isEmpty) {
@@ -73,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }),
                       const SizedBox(height: 20),
                       AuthTextField(
-                          labelText: 'Password',
+                          labelText: AppLocalizations.of(context)!.password,
                           controller: passwordController,
                           obscureText: true,
                           validator: (val) {
@@ -88,8 +89,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           }),
                       const SizedBox(height: 20),
                       AuthButton(
-                        mainText: 'No account yet? ',
-                        subText: 'Register here!',
+                        mainText:
+                            '${AppLocalizations.of(context)!.noAccountYet}? ',
+                        subText:
+                            '${AppLocalizations.of(context)!.registerHere}!',
                         function: () {
                           Navigator.pushNamed(
                             context,
@@ -104,8 +107,8 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             if (!isKeyboardVisible)
               AuthBottomBar(
-                  mainText: 'I\'m ready',
-                  subText: '...and real',
+                  mainText: AppLocalizations.of(context)!.imReady,
+                  subText: '...${AppLocalizations.of(context)!.andReal}!',
                   onTapped: () {
                     if (_formKey.currentState!.validate()) {
                       FirebaseService()

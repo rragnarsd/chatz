@@ -4,6 +4,7 @@ import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,7 +68,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     Expanded(
                       child: ChatSearchBox(
                         controller: controller,
-                        hintText: 'Type your message...',
+                        hintText:
+                            '${AppLocalizations.of(context)!.typeMessage}....',
                         function: (value) {
                           setState(() {
                             message = value;

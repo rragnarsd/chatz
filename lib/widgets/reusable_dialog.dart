@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/widgets/reusable_elevated_button.dart';
 import 'package:chatz/widgets/reusable_outline_button.dart';
-import 'package:flutter/material.dart';
 
 class ReusableDialog extends StatelessWidget {
   const ReusableDialog(
@@ -27,18 +29,18 @@ class ReusableDialog extends StatelessWidget {
         ),
         content: TextField(
           controller: _nameController,
-          decoration: const InputDecoration(
-            hintText: 'Enter new name...',
+          decoration: InputDecoration(
+            hintText: hintText,
           ),
         ),
         actions: [
-          const ReusableOutlineButton(
-            text: 'Cancel',
+          ReusableOutlineButton(
+            text: AppLocalizations.of(context)!.cancel,
           ),
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: ReusableElevatedButton(
-              text: 'Save',
+              text: AppLocalizations.of(context)!.save,
               function: () => onUpdate(),
             ),
           ),

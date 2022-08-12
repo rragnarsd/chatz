@@ -1,20 +1,21 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
-
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:chatz/widgets/text_field.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -126,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 40),
                     AuthTextField(
-                      labelText: 'Username',
+                      labelText: AppLocalizations.of(context)!.userName,
                       controller: nameController,
                       validator: (value) {
                         RegExp regex = RegExp(r'^.{3,}$');
@@ -141,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 20),
                     AuthTextField(
-                        labelText: 'Email address',
+                        labelText: AppLocalizations.of(context)!.userEmail,
                         controller: emailController,
                         validator: (val) {
                           if (val!.isEmpty) {
@@ -155,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         }),
                     const SizedBox(height: 20),
                     AuthTextField(
-                        labelText: 'Password',
+                        labelText: AppLocalizations.of(context)!.password,
                         controller: passwordController,
                         obscureText: true,
                         validator: (val) {
@@ -170,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         }),
                     const SizedBox(height: 20),
                     AuthTextField(
-                      labelText: 'Re-type Password',
+                      labelText: AppLocalizations.of(context)!.reTypePassword,
                       controller: confirmController,
                       obscureText: true,
                       validator: (value) {
@@ -182,8 +183,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 20),
                     AuthButton(
-                      mainText: 'Already registered? ',
-                      subText: 'Login here!',
+                      mainText:
+                          '${AppLocalizations.of(context)!.alreadyRegistered}? ',
+                      subText: '${AppLocalizations.of(context)!.loginHere}!',
                       function: () {
                         Navigator.pushNamed(
                           context,
@@ -197,8 +199,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             if (!isKeyboardVisible)
               AuthBottomBar(
-                  mainText: 'Save and Continue',
-                  subText: 'Your data must be real',
+                  mainText: AppLocalizations.of(context)!.saveAndContinue,
+                  subText: AppLocalizations.of(context)!.dataMustBeReal,
                   onTapped: () {
                     if (_formKey.currentState!.validate()) {
                       FirebaseService()
