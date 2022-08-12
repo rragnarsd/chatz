@@ -1,7 +1,7 @@
 part of '../home_screen.dart';
 
-class ChatTileBody extends StatelessWidget {
-  const ChatTileBody({
+class ChatTile extends StatelessWidget {
+  const ChatTile({
     Key? key,
     required this.name,
     required this.message,

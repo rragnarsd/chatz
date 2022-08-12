@@ -1,10 +1,10 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/routes/router.dart';
+import 'package:chatz/screens/shared/widgets/app_bar_loading.dart';
+import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
+import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
 import 'package:chatz/services/firebase.dart';
-import 'package:chatz/widgets/app_bar_loading.dart';
-import 'package:chatz/widgets/reusable_elevated_button.dart';
-import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -75,11 +75,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                 style: TextStyles.style14,
                               ),
                               actions: [
-                                ReusableOutlineButton(
+                                AppOutlineBtn(
                                     text: AppLocalizations.of(context)!.cancel),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15.0),
-                                  child: ReusableElevatedButton(
+                                  child: AppElevatedBtn(
                                     text:
                                         AppLocalizations.of(context)!.xContinue,
                                     function: () {

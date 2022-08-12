@@ -1,7 +1,7 @@
 part of '../profile_screen.dart';
 
-class ProfileImageRow extends StatefulWidget {
-  const ProfileImageRow({
+class ImageRow extends StatefulWidget {
+  const ImageRow({
     Key? key,
     required this.userData,
   }) : super(key: key);
@@ -9,10 +9,10 @@ class ProfileImageRow extends StatefulWidget {
   final dynamic userData;
 
   @override
-  State<ProfileImageRow> createState() => _ProfileImageRowState();
+  State<ImageRow> createState() => _ImageRowState();
 }
 
-class _ProfileImageRowState extends State<ProfileImageRow> {
+class _ImageRowState extends State<ImageRow> {
   final FirebaseStorage storage = FirebaseStorage.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   File? pickedImage;
@@ -55,7 +55,7 @@ class _ProfileImageRowState extends State<ProfileImageRow> {
                           isDismissible: true,
                           context: context,
                           builder: (context) {
-                            return ReusableBottomSheet(
+                            return AppBottomSheet(
                               fromCamera: () async {
                                 await pickImageFromCamera()
                                     .then((value) => Navigator.pop(context));

@@ -2,29 +2,26 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class ReusableElevatedButton extends StatelessWidget {
-  const ReusableElevatedButton({
+class AppOutlineBtn extends StatelessWidget {
+  const AppOutlineBtn({
     Key? key,
     required this.text,
-    required this.function,
   }) : super(key: key);
 
   final String text;
-  final Function() function;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
         side: const BorderSide(width: 1),
-        primary: ConstColors.redOrange,
       ),
-      onPressed: () {
-        function();
-      },
+      onPressed: () => Navigator.pop(context),
       child: Text(
         text,
-        style: TextStyles.style14Bold,
+        style: TextStyles.style14.copyWith(
+          color: ConstColors.black87,
+        ),
       ),
     );
   }

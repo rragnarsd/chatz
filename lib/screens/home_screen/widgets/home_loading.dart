@@ -1,4 +1,4 @@
-import 'package:chatz/widgets/shimmer_loading.dart';
+import 'package:chatz/screens/shared/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 
 class HomeLoading extends StatelessWidget {

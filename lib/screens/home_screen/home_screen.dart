@@ -1,3 +1,5 @@
+import 'package:chatz/screens/shared/widgets/app_bar.dart';
+import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +15,11 @@ import 'package:chatz/screens/home_screen/widgets/home_loading.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
-import 'package:chatz/widgets/app_bar.dart';
-import 'package:chatz/widgets/circle_icon_btn.dart';
 
-part './widgets/chat_tile_body.dart';
-part './widgets/floating_action_btn.dart';
-part './widgets/search_box.dart';
+part 'widgets/chat_tile.dart';
+part 'widgets/floating_action_btn.dart';
+part 'widgets/list_view_item.dart';
+part 'widgets/list_view_empty.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -66,19 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     if (snapshot.data!.docs.isEmpty) {
-                      return SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.6,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(AppLocalizations.of(context)!.noMessagesYet),
-                              Text(
-                                  '${AppLocalizations.of(context)!.clickOnThePlusButton}!'),
-                            ],
-                          ),
-                        ),
-                      );
+                      return const ListViewEmpty();
                     }
 
                     return Padding(
@@ -96,25 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Timestamp t = message['createdAt'];
                             DateTime parsedDate = t.toDate();
 
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return ChatScreen(
-                                      chatUser: message['conversation_id'],
-                                      currentUser: auth.currentUser!.uid,
-                                    );
-                                  }),
-                                );
-                              },
-                              child: ChatTileBody(
-                                name: 'Sender',
-                                //name: message['user_id'],
-                                lastMessage:
-                                    Functions().convertToAgo(parsedDate),
-                                message: message['message'],
-                              ),
+                            return ListViewItem(
+                              message: message,
+                              auth: auth,
+                              parsedDate: parsedDate,
                             );
                           },
                         ),

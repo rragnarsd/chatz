@@ -1,7 +1,7 @@
 part of '../profile_screen.dart';
 
-class ProfileInfoRow extends StatelessWidget {
-  const ProfileInfoRow({
+class InfoRow extends StatelessWidget {
+  const InfoRow({
     Key? key,
     required this.userData,
     required this.userKey,

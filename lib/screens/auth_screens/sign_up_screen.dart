@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:chatz/screens/shared/widgets/app_bottom_sheet.dart';
+import 'package:chatz/screens/shared/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,8 +16,6 @@ import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/services/firebase.dart';
-import 'package:chatz/widgets/reusable_bottom_sheet.dart';
-import 'package:chatz/widgets/text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     isDismissible: true,
                                     context: context,
                                     builder: (context) {
-                                      return ReusableBottomSheet(
+                                      return AppBottomSheet(
                                         fromCamera: () {
                                           pickImageFromCamera();
                                           Navigator.pop(context);

@@ -1,12 +1,12 @@
+import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
+import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/widgets/reusable_elevated_button.dart';
-import 'package:chatz/widgets/reusable_outline_button.dart';
 
-class ReusableDialog extends StatelessWidget {
-  const ReusableDialog(
+class AppDialog extends StatelessWidget {
+  const AppDialog(
       {Key? key,
       required TextEditingController nameController,
       required this.onUpdate,
@@ -34,12 +34,12 @@ class ReusableDialog extends StatelessWidget {
           ),
         ),
         actions: [
-          ReusableOutlineButton(
+          AppOutlineBtn(
             text: AppLocalizations.of(context)!.cancel,
           ),
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: ReusableElevatedButton(
+            child: AppElevatedBtn(
               text: AppLocalizations.of(context)!.save,
               function: () => onUpdate(),
             ),

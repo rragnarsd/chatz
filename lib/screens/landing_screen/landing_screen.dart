@@ -10,6 +10,8 @@ part 'widgets/carousel.dart';
 part 'widgets/elevated_btn.dart';
 part 'widgets/landing_carousel.dart';
 
+part 'widgets/body.dart';
+
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
 
@@ -30,39 +32,11 @@ class LandingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: Column(children: [
-                const SizedBox(height: 20),
-                Text(
-                  '${AppLocalizations.of(context)!.welcomeTo} Chatz',
-                  style: TextStyles.style18Bold,
-                ),
-                const LandingCarousel(),
-                Text(
-                  '${AppLocalizations.of(context)!.itIsFree}!',
-                  style: TextStyles.styleRandomOne,
-                ),
-                const SizedBox(height: 10),
-                ElevatedBtn(
-                  text: AppLocalizations.of(context)!.signIn,
-                  btnColor: ConstColors.redOrange,
-                  textColor: ConstColors.black87,
-                  onTapped: () =>
-                      Navigator.pushNamed(context, AppRouter.signIncreen),
-                ),
-                const SizedBox(height: 20),
-                ElevatedBtn(
-                  text: AppLocalizations.of(context)!.register,
-                  btnColor: ConstColors.lightBlueCyan,
-                  textColor: ConstColors.white,
-                  onTapped: () =>
-                      Navigator.pushNamed(context, AppRouter.signUpcreen),
-                ),
-              ]),
-            ),
+            const LandingBody(),
           ]),
         ),
       ),
     );
   }
 }
+

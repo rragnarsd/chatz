@@ -1,5 +1,4 @@
-import 'package:chatz/widgets/shimmer_loading.dart';
-import 'package:flutter/material.dart';
+part of '../search_screen.dart';
 
 class SearchLoading extends StatelessWidget {
   const SearchLoading({

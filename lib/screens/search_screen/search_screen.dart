@@ -1,3 +1,7 @@
+import 'package:chatz/screens/shared/widgets/app_bar.dart';
+import 'package:chatz/screens/shared/widgets/search_box.dart';
+import 'package:chatz/screens/shared/widgets/shimmer_loading.dart';
+import 'package:chatz/services/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +12,9 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
-import 'package:chatz/screens/home_screen/home_screen.dart';
-import 'package:chatz/screens/search_screen/widgets/search_loading.dart';
-import 'package:chatz/services/firebase.dart';
-import 'package:chatz/widgets/app_bar.dart';
+
+part 'widgets/search_result.dart';
+part 'widgets/search_loading.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -109,88 +112,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                     .toLowerCase()
                                     .contains(controller.text.toLowerCase()))
                                 .map((info) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return ChatScreen(
-                                        chatUser: info['uid'],
-                                        currentUser: auth.currentUser!.uid,
-                                      );
-                                    }),
-                                  );
-                                },
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      left: 5,
-                                      right: 4,
-                                      top: 8,
-                                      child: Container(
-                                        height: 180,
-                                        decoration:
-                                            UIStyles.chatDecoration.copyWith(
-                                          color: ConstColors.lightShadeOrange,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 0,
-                                      bottom: 13,
-                                      child: Container(
-                                        height: 180,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
-                                        padding: const EdgeInsets.all(10),
-                                        decoration:
-                                            UIStyles.chatDecoration.copyWith(
-                                          color: ConstColors.white,
-                                        ),
-                                        child: Column(children: [
-                                          Container(
-                                            width: 140,
-                                            height: 80,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(13),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  info['imgUrl'],
-                                                ),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                info['name'],
-                                                style: TextStyles.style14,
-                                              ),
-                                              const SizedBox(width: 10),
-                                              const FaIcon(
-                                                FontAwesomeIcons.comment,
-                                                color: ConstColors.redOrange,
-                                                size: 20,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            info['email'],
-                                            style: TextStyles.style14Bold,
-                                          ),
-                                        ]),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                              return SearchResult(
+                                auth: auth,
+                                chatUser: info['uid'],
+                                email: info['email'],
+                                imgUrl: info['imgUrl'],
+                                name: info['name'],
                               );
                             })
                           ]),
@@ -203,3 +130,5 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
+
+

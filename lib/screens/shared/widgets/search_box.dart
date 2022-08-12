@@ -1,4 +1,6 @@
-part of '../home_screen.dart';
+import 'package:chatz/constants/colors.dart';
+import 'package:chatz/constants/ui_styles.dart';
+import 'package:flutter/material.dart';
 
 class ChatSearchBox extends StatelessWidget {
   const ChatSearchBox({

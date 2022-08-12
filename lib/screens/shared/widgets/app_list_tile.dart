@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ReusableTile extends StatelessWidget {
-  const ReusableTile({
+class AppListTile extends StatelessWidget {
+  const AppListTile({
     Key? key,
     required this.text,
     required this.iconColor,

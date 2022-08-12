@@ -1,6 +1,6 @@
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
-import 'package:chatz/widgets/circle_icon_btn.dart';
+import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
