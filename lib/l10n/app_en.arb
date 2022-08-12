@@ -36,5 +36,11 @@
     "noUserFound": "No user found",
 
     "noMessagesYet": "No messages yet",
-    "clickOnThePlusButton": "Click on the plus button"
+    "clickOnThePlusButton": "Click on the plus button",
+
+    "daysAgo": "day(s) ago",
+    "hourAgo": "hour(s) ago",
+    "minAgo": "min(s) ago",
+    "secAgo": "sec(s) ago",
+    "justNow": "just now"
 }

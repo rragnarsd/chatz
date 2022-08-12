@@ -88,7 +88,7 @@ class ChatsWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                Functions().convertToAgo(parsedDate),
+                                Functions().convertToAgo(parsedDate, context),
                                 style:
                                     TextStyles.style12.copyWith(fontSize: 10),
                               )

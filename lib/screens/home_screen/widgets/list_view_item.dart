@@ -29,7 +29,7 @@ class ListViewItem extends StatelessWidget {
       child: ChatTile(
         name: 'Sender',
         //name: message['user_id'],
-        lastMessage: Functions().convertToAgo(parsedDate),
+        lastMessage: Functions().convertToAgo(parsedDate, context),
         message: message['message'],
       ),
     );

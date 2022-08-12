@@ -1,17 +1,19 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class Functions {
-  String convertToAgo(DateTime input) {
+  String convertToAgo(DateTime input, context) {
     Duration timeAgo = DateTime.now().difference(input);
 
     if (timeAgo.inDays >= 1) {
-      return '${timeAgo.inDays} day(s) ago';
+      return '${timeAgo.inDays} ${AppLocalizations.of(context)!.daysAgo}';
     } else if (timeAgo.inHours >= 1) {
-      return '${timeAgo.inHours} hour(s) ago';
+      return '${timeAgo.inHours} ${AppLocalizations.of(context)!.hourAgo}';
     } else if (timeAgo.inMinutes >= 1) {
-      return '${timeAgo.inMinutes} min(s) ago';
+      return '${timeAgo.inMinutes} ${AppLocalizations.of(context)!.minAgo}';
     } else if (timeAgo.inSeconds >= 1) {
-      return '${timeAgo.inSeconds} sec(s) ago';
+      return '${timeAgo.inSeconds} ${AppLocalizations.of(context)!.secAgo}';
     } else {
-      return 'just now';
+      return AppLocalizations.of(context)!.justNow;
     }
   }
 }

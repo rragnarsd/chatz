@@ -35,7 +35,12 @@
     "findFriends": "Finna vini",
     "noUserFound": "Enginn notandi fannst",
 
-
     "noMessagesYet": "Engin skilaboð",
-    "clickOnThePlusButton": "Smelltu á plús takkann"
+    "clickOnThePlusButton": "Smelltu á plús takkann",
+    
+    "daysAgo": "dagur/dögum síðan",
+    "hourAgo": "klst síðan",
+    "minAgo": "mín síðan",
+    "secAgo": "sek síðan",
+    "justNow": "rétt í þessu"
 }
