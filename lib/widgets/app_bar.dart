@@ -2,6 +2,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:chatz/widgets/app_bar_loading.dart';
 import 'package:chatz/widgets/reusable_elevated_button.dart';
 import 'package:chatz/widgets/reusable_outline_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +26,10 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         future: FirebaseService().getCurrentUser(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return AppBarLoading(leading: leading, title: title);
+          }
+
           if (snapshot.hasData) {
             var data = snapshot.data!.data();
             var imgUrl = data!['imgUrl'];

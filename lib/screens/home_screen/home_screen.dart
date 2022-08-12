@@ -2,6 +2,7 @@ import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
+import 'package:chatz/screens/home_screen/widgets/home_loading.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
@@ -59,9 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   stream: FirebaseService().getChats(auth.currentUser!.uid),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const HomeLoading();
                     }
 
                     if (snapshot.data!.docs.isEmpty) {

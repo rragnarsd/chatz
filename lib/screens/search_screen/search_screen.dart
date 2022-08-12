@@ -3,6 +3,7 @@ import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
+import 'package:chatz/screens/search_screen/widgets/search_loading.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -69,8 +70,8 @@ class _SearchScreenState extends State<SearchScreen> {
             StreamBuilder<QuerySnapshot>(
                 stream: FirebaseService().getUsers(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SearchLoading();
                   }
 
                   if (snapshot.data!.docs
