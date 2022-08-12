@@ -17,11 +17,10 @@ class ChatTile extends StatelessWidget {
     return Stack(clipBehavior: Clip.none, children: [
       Positioned(
         left: 4,
-        right: -4,
+        right: 2,
         top: 8,
         child: Container(
           height: 80,
-          width: MediaQuery.of(context).size.width,
           decoration: UIStyles.chatDecoration.copyWith(
             color: ConstColors.lightShadeOrange,
           ),
@@ -38,11 +37,7 @@ class ChatTile extends StatelessWidget {
             children: [
               Container(
                   height: 40,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.5),
-                    shape: BoxShape.circle,
-                    color: ConstColors.shadeOfCyan,
-                  ),
+                  decoration: UIStyles.tileDecoration,
                   child: const CircleAvatar(
                     radius: 18,
                     backgroundColor: ConstColors.darkerCyan,

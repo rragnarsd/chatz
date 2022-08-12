@@ -14,23 +14,69 @@ class ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return ChatScreen(
-              chatUser: message['conversation_id'],
-              currentUser: auth.currentUser!.uid,
-            );
-          }),
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text(
+              //TODO - add the username
+              'Are you sure you want to delete the chat between you and x?',
+              style: TextStyles.style14,
+            ),
+            actions: [
+              AppOutlineBtn(text: AppLocalizations.of(context)!.cancel),
+              Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: AppElevatedBtn(
+                  text: AppLocalizations.of(context)!.xContinue,
+                  function: () {
+                    FirebaseService()
+                        .deleteChats(message.id)
+                        .then((value) => Navigator.pop(context));
+                  },
+                ),
+              )
+            ],
+          ),
         );
       },
-      child: ChatTile(
-        name: 'Sender',
-        //name: message['user_id'],
-        lastMessage: Functions().convertToAgo(parsedDate, context),
-        message: message['message'],
+      background: Container(
+        decoration: UIStyles.chatDecoration.copyWith(
+          color: ConstColors.redOrange,
+        ),
+        child: const Padding(
+          padding: EdgeInsets.only(right: 20.0),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: FaIcon(
+              FontAwesomeIcons.xmark,
+            ),
+          ),
+        ),
+      ),
+      key: ValueKey<QueryDocumentSnapshot<Object?>>(
+        message,
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return ChatScreen(
+                chatUser: message['conversation_id'],
+                currentUser: auth.currentUser!.uid,
+              );
+            }),
+          );
+        },
+        child: ChatTile(
+          name: 'Sender',
+          //name: message['user_id'],
+          lastMessage: Functions().convertToAgo(parsedDate, context),
+          message: message['message'],
+        ),
       ),
     );
   }

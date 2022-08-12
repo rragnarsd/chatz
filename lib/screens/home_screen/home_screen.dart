@@ -1,4 +1,6 @@
 import 'package:chatz/screens/shared/widgets/app_bar.dart';
+import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
+import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
 import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

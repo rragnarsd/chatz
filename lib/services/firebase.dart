@@ -154,6 +154,19 @@ class FirebaseService {
         .snapshots();
   }
 
+  Future deleteChats(String messageId) async {
+    try {
+      await firestore
+          .collection('chats')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('messages')
+          .doc(messageId)
+          .delete();
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   //Update - Upload
 
   Future updateName(String name) {

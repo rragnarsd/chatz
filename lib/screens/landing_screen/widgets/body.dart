@@ -24,14 +24,20 @@ class LandingBody extends StatelessWidget {
           text: AppLocalizations.of(context)!.signIn,
           btnColor: ConstColors.redOrange,
           textColor: ConstColors.black87,
-          onTapped: () => Navigator.pushNamed(context, AppRouter.signIncreen),
+          onTapped: () => Navigator.pushNamed(
+            context,
+            AppRouter.signIncreen,
+          ),
         ),
         const SizedBox(height: 20),
         ElevatedBtn(
           text: AppLocalizations.of(context)!.register,
           btnColor: ConstColors.lightBlueCyan,
           textColor: ConstColors.white,
-          onTapped: () => Navigator.pushNamed(context, AppRouter.signUpcreen),
+          onTapped: () => Navigator.pushNamed(
+            context,
+            AppRouter.signUpcreen,
+          ),
         ),
       ]),
     );

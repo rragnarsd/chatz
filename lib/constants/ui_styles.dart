@@ -83,4 +83,11 @@ class UIStyles {
     borderRadius: BorderRadius.circular(45),
     color: Colors.white,
   );
+
+  //Home Screen
+  static BoxDecoration tileDecoration = BoxDecoration(
+    border: Border.all(width: 1.5),
+    shape: BoxShape.circle,
+    color: ConstColors.shadeOfCyan,
+  );
 }
