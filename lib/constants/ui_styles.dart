@@ -39,6 +39,14 @@ class UIStyles {
     ],
   );
 
+  static BoxDecoration bottomSheet = const BoxDecoration(
+    color: ConstColors.white,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(27),
+      topRight: Radius.circular(27),
+    ),
+  );
+
   static BoxShadow boxShadowPositive = BoxShadow(
     color: Colors.grey.withOpacity(0.5),
     blurRadius: 5,

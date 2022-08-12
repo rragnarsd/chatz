@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/widgets/reusable_tile.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReusableBottomSheet extends StatelessWidget {
   const ReusableBottomSheet({
@@ -19,9 +20,13 @@ class ReusableBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      decoration: UIStyles.authBottomBar.copyWith(color: Colors.white),
+      decoration: UIStyles.bottomSheet,
       child: Center(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const FaIcon(
+            FontAwesomeIcons.minus,
+            size: 30,
+          ),
           ReusableTile(
             icon: Icons.camera_alt,
             iconColor: ConstColors.darkerCyan,

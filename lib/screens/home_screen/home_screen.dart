@@ -110,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               child: ChatTileBody(
                                 name: 'Sender',
+                                //name: message['user_id'],
                                 lastMessage:
                                     Functions().convertToAgo(parsedDate),
                                 message: message['message'],

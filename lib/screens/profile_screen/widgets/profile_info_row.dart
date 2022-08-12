@@ -31,9 +31,7 @@ class ProfileInfoRow extends StatelessWidget {
           children: [
             Text(
               userValue,
-              style: TextStyles.style14Bold.copyWith(
-                color: ConstColors.black87,
-              ),
+              style: TextStyles.style14,
             ),
             isChangeable == false
                 ? const SizedBox.shrink()
