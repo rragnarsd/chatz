@@ -1,3 +1,4 @@
+import 'package:chatz/provider/locale.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:chatz/l10n/l10n.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,31 +32,38 @@ class MyApp extends StatelessWidget {
         statusBarBrightness: Brightness.light,
       ),
     );
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.sarabunTextTheme(),
-      ),
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: L10n.all,
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const HomeScreen();
-          } else {
-            return const LandingScreen();
-          }
-        },
-      ),
-      onGenerateRoute: AppRouter.onGenerateRoute,
+    return ChangeNotifierProvider(
+      create: (context) => LocaleNotifier(),
+      builder: (context, child) {
+        final provider = Provider.of<LocaleNotifier>(context);
+        return MaterialApp(
+          title: 'Chatz',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: GoogleFonts.sarabunTextTheme(),
+          ),
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          locale: provider.locale,
+          supportedLocales: L10n.all,
+          home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return const HomeScreen();
+              } else {
+                return const LandingScreen();
+              }
+            },
+          ),
+          onGenerateRoute: AppRouter.onGenerateRoute,
+        );
+      },
     );
   }
 }

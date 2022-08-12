@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:chatz/l10n/l10n.dart';
+import 'package:chatz/provider/locale.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,6 +18,7 @@ import 'package:chatz/services/firebase.dart';
 import 'package:chatz/widgets/app_bar.dart';
 import 'package:chatz/widgets/reusable_bottom_sheet.dart';
 import 'package:chatz/widgets/reusable_dialog.dart';
+import 'package:provider/provider.dart';
 
 part './widgets/profile_image_row.dart';
 part './widgets/profile_info_row.dart';
@@ -36,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
 
   String? value;
+  bool changeLanguage = true;
 
   @override
   void dispose() {
@@ -45,6 +49,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleNotifier>(context);
+    final locale = provider.locale;
     return Scaffold(
       appBar: CustomAppbar(
         leading: IconButton(
@@ -75,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     top: 120,
                     left: 20,
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.5,
                       width: MediaQuery.of(context).size.width * 0.9,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: UIStyles.profileDecoration.copyWith(
@@ -118,14 +124,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                           ),
                           const Divider(thickness: 1),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
                           ProfileInfoRow(
                             userData: userData,
                             userKey:
                                 '${AppLocalizations.of(context)!.userEmail}:',
                             userValue: userData['email'] ?? '',
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
+                          const Divider(thickness: 1),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '${AppLocalizations.of(context)!.changeLanguage}:',
+                                style: TextStyles.style14.copyWith(
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      borderRadius: BorderRadius.circular(13),
+                                      value: locale,
+                                      items: L10n.all.map((locale) {
+                                        final country =
+                                            L10n.language(locale.languageCode);
+                                        return DropdownMenuItem(
+                                          value: locale,
+                                          onTap: () {
+                                            final provider =
+                                                Provider.of<LocaleNotifier>(
+                                                    context,
+                                                    listen: false);
+                                            provider.setLocale(locale);
+                                          },
+                                          child: Center(
+                                            child: Text(
+                                              country,
+                                              style: TextStyles.style14,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (_) {},
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                           const Spacer(),
                         ],
                       ),

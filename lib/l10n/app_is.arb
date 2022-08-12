@@ -1,5 +1,6 @@
 {
     "language": "Íslenska",
+    "changeLanguage": "Tungumál",
     "welcomeTo": "Velkomin á",
     "itIsFree": "Það er frítt",
     "signIn": "Skráðu þig inn",
@@ -33,6 +34,7 @@
     "sureToLogOut": "Ertu viss um að þú viljir skrá þig út",
     "findFriends": "Finna vini",
     "noUserFound": "Enginn notandi fannst",
+
 
     "noMessagesYet": "Engin skilaboð",
     "clickOnThePlusButton": "Smelltu á plús takkann"

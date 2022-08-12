@@ -1,5 +1,6 @@
 {
     "language": "English",
+    "changeLanguage": "Language",
     "welcomeTo": "Welcome to",
     "itIsFree": "It is for free",
     "signIn": "Sign in",
