@@ -8,14 +8,7 @@ class FloatingActionButtonAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade600,
-          spreadRadius: 1,
-          blurRadius: 5,
-          offset: const Offset(0, 5),
-        ),
-      ]),
+      decoration: UIStyles.profileDecorationAvatar,
       child: CircleIconBtn(
           btnColor: ConstColors.redOrange,
           iconColor: Colors.black,

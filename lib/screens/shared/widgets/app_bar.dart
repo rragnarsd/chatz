@@ -54,14 +54,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(10),
-                          child: CircleAvatar(
-                            radius: 20,
-                            child: Hero(
-                              tag: 'profileImg',
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundImage: NetworkImage(imgUrl),
-                              ),
+                          child: Hero(
+                            tag: 'profileImg',
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(imgUrl),
+                              backgroundColor: ConstColors.lightBlueCyan,
                             ),
                           ),
                         ))

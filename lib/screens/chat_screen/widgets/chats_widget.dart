@@ -16,8 +16,12 @@ class ChatsWidget extends StatelessWidget {
         stream: FirebaseService().getChat(widget.chatUser),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: ConstColors.darkerCyan,
+                ),
+              ),
             );
           }
 
@@ -63,6 +67,7 @@ class ChatsWidget extends StatelessWidget {
                               CircleAvatar(
                                 radius: 16,
                                 backgroundColor: Colors.grey.shade400,
+                                //TODO - need userImg
                               ),
                             const SizedBox(width: 10),
                             Column(

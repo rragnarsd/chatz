@@ -20,9 +20,9 @@ class ListViewItem extends StatelessWidget {
         return showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text(
+            title: Text(
               //TODO - add the username
-              'Are you sure you want to delete the chat between you and x?',
+              '${AppLocalizations.of(context)!.sureToDeleteTheChat} x?',
               style: TextStyles.style14,
             ),
             actions: [
@@ -59,6 +59,7 @@ class ListViewItem extends StatelessWidget {
       key: ValueKey<QueryDocumentSnapshot<Object?>>(
         message,
       ),
+      //TODO - Check out the behaviour when navigating to the chatscreen
       child: InkWell(
         onTap: () {
           Navigator.push(
