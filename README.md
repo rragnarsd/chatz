@@ -16,7 +16,7 @@
 - Fully functioning CRUD app
 - Register, login and logout
 - Create, read, edit and delete
-- Switch languages - English and Icelandic are currently supported 
+- Localization - English and Icelandic are currently supported 
 - Search functionality
 - Shimmer loading
 
