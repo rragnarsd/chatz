@@ -13,7 +13,7 @@
 - Shimmer - https://pub.dev/packages/shimmer
 
 ## Functionality
-- Fully functioning CRUD app
+- Fully functional CRUD app
 - Register, login and logout
 - Create, read, edit and delete
 - Localization - English and Icelandic are currently supported 
@@ -31,6 +31,9 @@
 - Images are from:
   - www.pexels.com
   - https://storyset.com/
+- Color palette:
+
+![Chatz](https://user-images.githubusercontent.com/44742460/184507211-1584fe61-63ae-494d-9956-5480d9aa8822.png)
 
 ## :bulb: Challenges
 - I had problems with the implementation of the chat - at first I was just talking to my self :grin:
