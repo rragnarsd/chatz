@@ -32,7 +32,12 @@ class ChatSearchBox extends StatelessWidget {
           left: 20,
         ),
         enabledBorder: UIStyles.borders,
-        focusedBorder: UIStyles.borders,
+        focusedBorder: UIStyles.borders.copyWith(
+          borderSide: const BorderSide(
+            color: ConstColors.darkerCyan,
+            width: 1.5,
+          ),
+        ),
         border: UIStyles.borders,
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:chatz/screens/shared/widgets/dismiss_keyboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -36,32 +37,34 @@ class MyApp extends StatelessWidget {
       create: (context) => LocaleNotifier(),
       builder: (context, child) {
         final provider = Provider.of<LocaleNotifier>(context);
-        return MaterialApp(
-          title: 'Chatz',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: GoogleFonts.sarabunTextTheme(),
+        return DismissKeyboard(
+          child: MaterialApp(
+            title: 'Chatz',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              textTheme: GoogleFonts.sarabunTextTheme(),
+            ),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            locale: provider.locale,
+            supportedLocales: L10n.all,
+            home: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return const HomeScreen();
+                } else {
+                  return const LandingScreen();
+                }
+              },
+            ),
+            onGenerateRoute: AppRouter.onGenerateRoute,
           ),
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          locale: provider.locale,
-          supportedLocales: L10n.all,
-          home: StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return const HomeScreen();
-              } else {
-                return const LandingScreen();
-              }
-            },
-          ),
-          onGenerateRoute: AppRouter.onGenerateRoute,
         );
       },
     );

@@ -3,22 +3,26 @@ import 'package:chatz/constants/ui_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
-  const AuthTextField({
-    Key? key,
-    required this.labelText,
-    required this.controller,
-    required this.validator,
-    this.obscureText = false,
-  }) : super(key: key);
+  const AuthTextField(
+      {Key? key,
+      required this.labelText,
+      required this.controller,
+      required this.validator,
+      this.obscureText = false,
+      this.keyBoardType})
+      : super(key: key);
 
   final String labelText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final TextInputType? keyBoardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: keyBoardType,
       controller: controller,
       cursorColor: ConstColors.black,
       validator: validator,
@@ -32,7 +36,12 @@ class AuthTextField extends StatelessWidget {
           left: 20,
         ),
         enabledBorder: UIStyles.borders,
-        focusedBorder: UIStyles.borders,
+        focusedBorder: UIStyles.borders.copyWith(
+          borderSide: const BorderSide(
+            color: ConstColors.darkerCyan,
+            width: 1.5,
+          ),
+        ),
         border: UIStyles.borders,
       ),
     );

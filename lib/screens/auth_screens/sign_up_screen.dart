@@ -144,6 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     AuthTextField(
                         labelText: AppLocalizations.of(context)!.userEmail,
                         controller: emailController,
+                        keyBoardType: TextInputType.emailAddress,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return validations.emailValidation;
