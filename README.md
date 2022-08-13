@@ -27,7 +27,7 @@
 - The design is inspired by Sulton handaya 
   - https://dribbble.com/shots/16578703-Pet-Finder-App
   - https://dribbble.com/shots/16833148-Leadership-Learning-Apps
-- Font Family: Sarabun for everything except the Chatz logo which has Boogaloo
+- Font Family: **Sarabun** for everything except the Chatz logo which has **Boogaloo**
 - Images are from:
   - www.pexels.com
   - https://storyset.com/
