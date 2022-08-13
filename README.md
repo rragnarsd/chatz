@@ -39,6 +39,7 @@
 - I had problems with the implementation of the chat - at first I was just talking to my self :grin:
 
 ## Screenshot
+![Untitled design](https://user-images.githubusercontent.com/44742460/184507347-dc3bd820-1924-4248-808c-920e3e18e4fc.png)
 
 ## Live preview
 
