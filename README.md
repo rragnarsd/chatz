@@ -8,11 +8,11 @@
 - Provider - https://pub.dev/packages/provider
 - Intl - https://pub.dev/packages/intl
 - Google_Fonts - https://pub.dev/packages/google_fonts
-- Font Awesome ö https://pub.dev/packages/font_awesome_flutter
+- Font Awesome - https://pub.dev/packages/font_awesome_flutter
 - Image Picker - https://pub.dev/packages/image_picker
 - Shimmer - https://pub.dev/packages/shimmer
 
-## Functionality
+## :bomb: Functionality
 - Fully functional CRUD app
 - Register, login and logout
 - Create, read, edit and delete
