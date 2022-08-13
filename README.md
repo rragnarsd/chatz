@@ -12,8 +12,15 @@
 - Image Picker - https://pub.dev/packages/image_picker
 - Shimmer - https://pub.dev/packages/shimmer
 
+## Functionality
+- Fully functioning CRUD app
+- Register, login and logout
+- Create, read, edit and delete
+- Switch languages - English and Icelandic are currently supported 
+- Search functionality
+
 ## :hammer_and_wrench: New Widgets/Stuff that I tried
-- Implementing a fully functional chat app
+- Implementing a chat app
 
 ##  :art: Design
 - The design is inspired by Sulton handaya 
