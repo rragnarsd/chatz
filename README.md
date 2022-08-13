@@ -18,6 +18,7 @@
 - Create, read, edit and delete
 - Switch languages - English and Icelandic are currently supported 
 - Search functionality
+- Shimmer loading
 
 ## :hammer_and_wrench: New Widgets/Stuff that I tried
 - Implementing a chat app
