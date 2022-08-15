@@ -5,10 +5,12 @@ class ChatsWidget extends StatelessWidget {
     Key? key,
     required this.widget,
     required this.auth,
+    required this.imgUrl,
   }) : super(key: key);
 
   final ChatScreen widget;
   final FirebaseAuth auth;
+  final String imgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +55,8 @@ class ChatsWidget extends StatelessWidget {
                       DateTime parsedDate = t.toDate();
 
                       return InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
+                        splashColor: ConstColors.transparent,
+                        focusColor: ConstColors.transparent,
                         onDoubleTap: () {
                           FirebaseService().deleteChats(message.id);
                         },
@@ -67,7 +69,7 @@ class ChatsWidget extends StatelessWidget {
                               CircleAvatar(
                                 radius: 16,
                                 backgroundColor: Colors.grey.shade400,
-                                //TODO - need userImg
+                                backgroundImage: NetworkImage(imgUrl),
                               ),
                             const SizedBox(width: 10),
                             Column(

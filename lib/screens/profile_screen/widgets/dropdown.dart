@@ -31,7 +31,7 @@ class Dropdown extends StatelessWidget {
                     value: locale,
                     onTap: () {
                       final provider =
-                          Provider.of<LocaleNotifier>(context, listen: false);
+                          Provider.of<LocaleProvider>(context, listen: false);
                       provider.setLocale(locale);
                     },
                     child: Center(

@@ -57,6 +57,7 @@ class FirebaseService {
                 .saveUserInfoToFirestore(userName, email, profileImg));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
+          //TODO 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(Validations().weakPassword),
@@ -97,6 +98,7 @@ class FirebaseService {
 
   //Users
 
+  //TODO
   Future<DocumentSnapshot<Map<String, dynamic>>> getCurrentUser() {
     var userInfo = firestore
         .collection('users')
@@ -158,7 +160,7 @@ class FirebaseService {
     try {
       await firestore
           .collection('chats')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(auth.currentUser!.uid)
           .collection('messages')
           .doc(messageId)
           .delete();

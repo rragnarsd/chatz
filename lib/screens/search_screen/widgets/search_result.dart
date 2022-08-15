@@ -18,24 +18,24 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) {
-            return ChatScreen(
-              chatUser: chatUser,
-              currentUser: auth.currentUser!.uid,
-            );
-          }),
+          AppRouter.chatScreen,
+          arguments: ChatScreenArguments(
+            chatUser: chatUser,
+            currentUser: auth.currentUser!.uid,
+          ),
         );
       },
       child: Stack(
         children: [
           Positioned(
-            left: 5,
-            right: 4,
-            top: 8,
+            left: size.width <= 360 ? 3 : 5,
+            right: size.width <= 360 ? 0 : 4,
+            top: size.width <= 360 ? 28 : 8,
             child: Container(
               height: 180,
               decoration: UIStyles.chatDecoration.copyWith(
@@ -48,7 +48,7 @@ class SearchResult extends StatelessWidget {
             bottom: 13,
             child: Container(
               height: 180,
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: size.width * 0.4,
               padding: const EdgeInsets.all(10),
               decoration: UIStyles.chatDecoration.copyWith(
                 color: ConstColors.white,

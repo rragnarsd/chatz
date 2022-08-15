@@ -45,22 +45,31 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CustomAppbar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
-        title: ChatRichText(widget: widget),
+        //TODO
+        title: const ChatRichText(
+          userName: 'User',
+        ),
         withProfile: true,
       ),
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width * 0.9,
+            height: size.height,
+            width: size.width * 0.9,
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              ChatsWidget(widget: widget, auth: auth),
+              ChatsWidget(
+                widget: widget,
+                auth: auth,
+                //TODO
+                imgUrl: '',
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),
                 child: Row(

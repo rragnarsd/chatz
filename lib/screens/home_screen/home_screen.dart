@@ -1,6 +1,8 @@
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/shared/widgets/app_bar.dart';
 import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
 import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
+import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
 import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,9 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/widgets/home_loading.dart';
-import 'package:chatz/screens/search_screen/search_screen.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
 
@@ -34,8 +34,44 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  var userName = '';
+  var userImg = '';
+  var userUid = '';
+
+  Future userInfo(String userId) async {
+    final userInfo = await firestore.collection('users').get();
+
+    var data = userInfo.docs.map((e) => e.data()['name']).toList();
+    print(data.length);
+
+    final userChat =
+        firestore.collection('chats/${auth.currentUser!.uid}/messages').get();
+
+    print(userChat);
+
+    // var name = userInfo.docs[0]['name'];
+    // var imgUrl = userInfo['imgUrl'];
+    // var uid = userInfo.docs[0]['uid'];
+
+    // final chatInfo =
+    //     await firestore.collection('chats').where(uid, isEqualTo: userId).get();
+
+    // setState(() {
+    //   userUid = name;
+    // });
+
+    print(userUid);
+  }
+
+  @override
+  void initState() {
+    userInfo(userUid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CustomAppbar(
         title: Text(
@@ -48,13 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
+          width: size.width,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const SizedBox(height: 20),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width: size.width * 0.9,
                   child: Text(
                     AppLocalizations.of(context)!.yourMessages,
                     style: TextStyles.style16Bold,
@@ -75,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: size.height * 0.75,
+                        width: size.width * 0.9,
                         child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           separatorBuilder: (context, index) =>
@@ -88,10 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             DateTime parsedDate = t.toDate();
 
                             return ListViewItem(
-                              message: message,
-                              auth: auth,
-                              parsedDate: parsedDate,
-                            );
+                                message: message,
+                                auth: auth,
+                                parsedDate: parsedDate,
+                                userName: 'UserName'
+
+                                // userImg: userImg ??
+                                //     'https://storyset.com/illustration/startled/pana#9FD7B6FF&hide=&hide=complete',
+                                );
                           },
                         ),
                       ),

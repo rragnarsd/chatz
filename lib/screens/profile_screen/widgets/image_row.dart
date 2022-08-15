@@ -15,10 +15,11 @@ class ImageRow extends StatefulWidget {
 class _ImageRowState extends State<ImageRow> {
   final FirebaseStorage storage = FirebaseStorage.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  File? pickedImage;
 
   @override
   Widget build(BuildContext context) {
+    File? pickedImage =
+        Provider.of<ImgProvider>(context, listen: true).pickedImage;
     return Row(
       children: [
         Image.asset(
@@ -40,7 +41,7 @@ class _ImageRowState extends State<ImageRow> {
                         backgroundImage: pickedImage == null
                             ? NetworkImage(widget.userData['imgUrl'])
                                 as ImageProvider
-                            : FileImage(pickedImage!),
+                            : FileImage(pickedImage),
                       ),
                     ),
                   ),
@@ -57,21 +58,26 @@ class _ImageRowState extends State<ImageRow> {
                           builder: (context) {
                             return AppBottomSheet(
                               fromCamera: () async {
-                                await pickImageFromCamera()
-                                    .then((value) => Navigator.pop(context));
-                                if (pickedImage != null) {
-                                  var imagePath = await FirebaseService()
-                                      .uploadImageToStorage(pickedImage!);
-                                  FirebaseService().updateImg(imagePath!);
-                                }
-                              },
-                              fromGallery: () async {
-                                await pickImageFromGallery()
+                                await Provider.of<ImgProvider>(context,
+                                        listen: false)
+                                    .pickImageFromCamera(pickedImage)
                                     .then((value) => Navigator.pop(context));
 
                                 if (pickedImage != null) {
                                   var imagePath = await FirebaseService()
-                                      .uploadImageToStorage(pickedImage!);
+                                      .uploadImageToStorage(pickedImage);
+                                  FirebaseService().updateImg(imagePath!);
+                                }
+                              },
+                              fromGallery: () async {
+                                await Provider.of<ImgProvider>(context,
+                                        listen: false)
+                                    .pickImageFromGallery(pickedImage)
+                                    .then((value) => Navigator.pop(context));
+
+                                if (pickedImage != null) {
+                                  var imagePath = await FirebaseService()
+                                      .uploadImageToStorage(pickedImage);
                                   FirebaseService().updateImg(imagePath!);
                                 }
                               },
@@ -97,21 +103,5 @@ class _ImageRowState extends State<ImageRow> {
         ),
       ],
     );
-  }
-
-  Future pickImageFromCamera() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-
-    setState(() {
-      pickedImage = File(image!.path);
-    });
-  }
-
-  Future pickImageFromGallery() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      pickedImage = File(image!.path);
-    });
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chatz/provider/img_provider.dart';
 import 'package:chatz/screens/shared/widgets/app_bottom_sheet.dart';
 import 'package:chatz/screens/shared/widgets/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
@@ -16,6 +16,7 @@ import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
 import 'package:chatz/services/firebase.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -37,7 +38,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController confirmController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  File? pickedImage;
 
   @override
   void dispose() {
@@ -50,19 +50,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
+    File? pickedImage =
+        Provider.of<ImgProvider>(context, listen: true).pickedImage;
+
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: size.width,
+          height: size.height,
           child: Column(children: [
             Expanded(
               child: Form(
                 key: _formKey,
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: size.height * 0.75,
+                  width: size.width * 0.9,
                   child: ListView(children: [
                     const SizedBox(height: 80),
                     Row(
@@ -82,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               backgroundColor: ConstColors.lightBlueCyan,
                               backgroundImage: pickedImage == null
                                   ? null
-                                  : FileImage(pickedImage!),
+                                  : FileImage(pickedImage),
                             ),
                           ),
                           Positioned(
@@ -91,17 +95,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: InkWell(
                               onTap: () {
                                 showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
+                                    backgroundColor: ConstColors.transparent,
                                     isDismissible: true,
                                     context: context,
                                     builder: (context) {
                                       return AppBottomSheet(
                                         fromCamera: () {
-                                          pickImageFromCamera();
+                                          Provider.of<ImgProvider>(context,
+                                                  listen: false)
+                                              .pickImageFromCamera(pickedImage);
                                           Navigator.pop(context);
                                         },
                                         fromGallery: () {
-                                          pickImageFromGallery();
+                                          Provider.of<ImgProvider>(context,
+                                                  listen: false)
+                                              .pickImageFromGallery(
+                                                  pickedImage);
                                           Navigator.pop(context);
                                         },
                                       );
@@ -220,21 +229,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  void pickImageFromCamera() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-
-    setState(() {
-      pickedImage = File(image!.path);
-    });
-  }
-
-  void pickImageFromGallery() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      pickedImage = File(image!.path);
-    });
   }
 }

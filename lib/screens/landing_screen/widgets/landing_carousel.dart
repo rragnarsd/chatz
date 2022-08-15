@@ -18,16 +18,17 @@ class _LandingCarouselState extends State<LandingCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.60,
+      width: size.width,
+      height: size.height * 0.60,
       child: Stack(children: [
         Positioned(
           top: 30,
           right: 28,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.87,
+            height: size.height * 0.1,
+            width: size.width * 0.87,
             decoration: UIStyles.carouselDecoration,
           ),
         ),
@@ -35,8 +36,8 @@ class _LandingCarouselState extends State<LandingCarousel> {
           bottom: 30,
           right: 28,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.87,
+            height: size.height * 0.1,
+            width: size.width * 0.87,
             decoration: UIStyles.carouselDecoration,
           ),
         ),

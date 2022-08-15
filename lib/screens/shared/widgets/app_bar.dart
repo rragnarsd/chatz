@@ -6,6 +6,7 @@ import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
 import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,8 +25,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        future: FirebaseService().getCurrentUser(),
+    //TODO - 
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return AppBarLoading(leading: leading, title: title);
@@ -74,7 +79,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                               ),
                               actions: [
                                 AppOutlineBtn(
-                                    text: AppLocalizations.of(context)!.cancel),
+                                  text: AppLocalizations.of(context)!.cancel,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15.0),
                                   child: AppElevatedBtn(

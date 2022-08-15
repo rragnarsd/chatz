@@ -18,8 +18,8 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: function,
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
+      splashColor: ConstColors.transparent,
+      focusColor: ConstColors.transparent,
       child: Center(
         child: RichText(
           text: TextSpan(

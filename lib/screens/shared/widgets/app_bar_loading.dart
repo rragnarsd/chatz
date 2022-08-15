@@ -25,7 +25,13 @@ class AppBarLoading extends StatelessWidget {
         color: ConstColors.black87,
       ),
       actions: const [
-        ShimmerLoading.circular(width: 40, height: 40),
+        Padding(
+          padding: EdgeInsets.only(right: 20.0),
+          child: ShimmerLoading.circular(
+            width: 40,
+            height: 40,
+          ),
+        ),
       ],
       title: title,
       titleTextStyle: TextStyles.style16Bold.copyWith(

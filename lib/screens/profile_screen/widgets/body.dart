@@ -15,17 +15,18 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      width: size.width,
+      height: size.height,
       child: Stack(
         children: [
           Positioned(
             top: 120,
             left: 20,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: MediaQuery.of(context).size.width * 0.9,
+              height: size.height * 0.5,
+              width: size.width * 0.9,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: UIStyles.profileDecoration.copyWith(
                 color: ConstColors.white,

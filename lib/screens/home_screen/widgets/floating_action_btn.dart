@@ -11,18 +11,16 @@ class FloatingActionButtonAdd extends StatelessWidget {
       decoration: UIStyles.profileDecorationAvatar,
       child: CircleIconBtn(
           btnColor: ConstColors.redOrange,
-          iconColor: Colors.black,
+          iconColor: ConstColors.black,
           height: 56,
           icon: const FaIcon(
             FontAwesomeIcons.plus,
             color: ConstColors.black,
           ),
           onTapped: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => const SearchScreen(),
-              ),
+              AppRouter.searchScreen,
             );
           }),
     );

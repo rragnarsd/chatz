@@ -6,11 +6,15 @@ class ListViewItem extends StatelessWidget {
     required this.message,
     required this.auth,
     required this.parsedDate,
+    required this.userName,
+    // required this.userImg,
   }) : super(key: key);
 
   final QueryDocumentSnapshot<Object?> message;
   final FirebaseAuth auth;
   final DateTime parsedDate;
+  final String userName;
+  // final String userImg;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,8 @@ class ListViewItem extends StatelessWidget {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(
-              //TODO - add the username
-              '${AppLocalizations.of(context)!.sureToDeleteTheChat} x?',
+              //TODO
+              '${AppLocalizations.of(context)!.sureToDeleteTheChat} $userName?',
               style: TextStyles.style14,
             ),
             actions: [
@@ -59,24 +63,23 @@ class ListViewItem extends StatelessWidget {
       key: ValueKey<QueryDocumentSnapshot<Object?>>(
         message,
       ),
-      //TODO - Check out the behaviour when navigating to the chatscreen
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(builder: (context) {
-              return ChatScreen(
-                chatUser: message['conversation_id'],
-                currentUser: auth.currentUser!.uid,
-              );
-            }),
+            AppRouter.chatScreen,
+            arguments: ChatScreenArguments(
+              chatUser: message['conversation_id'],
+              currentUser: auth.currentUser!.uid,
+            ),
           );
         },
         child: ChatTile(
-          name: 'Sender',
-          //name: message['user_id'],
+          name: userName,
           lastMessage: Functions().convertToAgo(parsedDate, context),
           message: message['message'],
+          //TODO
+          // img: userImg,
         ),
       ),
     );

@@ -3,10 +3,10 @@ part of '../chat_screen.dart';
 class ChatRichText extends StatelessWidget {
   const ChatRichText({
     Key? key,
-    required this.widget,
+    required this.userName,
   }) : super(key: key);
 
-  final ChatScreen widget;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,7 @@ class ChatRichText extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: 'ChatUser',
-            //text: '${widget.chatUser}',
+            text: userName,
             style: TextStyles.style16Bold.copyWith(
               color: ConstColors.black87,
             ),

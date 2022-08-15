@@ -23,12 +23,13 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Expanded(
       child: Form(
         key: _formKey,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.75,
-          width: MediaQuery.of(context).size.width * 0.9,
+          height: size.height * 0.75,
+          width: size.width * 0.9,
           child: ListView(
             children: [
               const SizedBox(height: 50),

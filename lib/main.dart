@@ -1,4 +1,4 @@
-import 'package:chatz/screens/shared/widgets/dismiss_keyboard.dart';
+import 'package:chatz/provider/img_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +8,19 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'package:chatz/l10n/l10n.dart';
-import 'package:chatz/provider/locale.dart';
+import 'package:chatz/L10n/l10n.dart';
+import 'package:chatz/provider/locale_provider.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
+import 'package:chatz/screens/shared/widgets/dismiss_keyboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,15 +36,22 @@ class MyApp extends StatelessWidget {
         statusBarBrightness: Brightness.light,
       ),
     );
-    return ChangeNotifierProvider(
-      create: (context) => LocaleNotifier(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LocaleProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ImgProvider(),
+        )
+      ],
       builder: (context, child) {
-        final provider = Provider.of<LocaleNotifier>(context);
+        final provider = Provider.of<LocaleProvider>(context);
         return DismissKeyboard(
           child: MaterialApp(
             title: 'Chatz',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.green,
               textTheme: GoogleFonts.sarabunTextTheme(),
             ),
             debugShowCheckedModeBanner: false,

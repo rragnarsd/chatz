@@ -19,9 +19,7 @@ class AppElevatedBtn extends StatelessWidget {
         side: const BorderSide(width: 1),
         primary: ConstColors.redOrange,
       ),
-      onPressed: () {
-        function();
-      },
+      onPressed: () => function(),
       child: Text(
         text,
         style: TextStyles.style14Bold,

@@ -12,4 +12,5 @@ class ConstColors {
   static const Color black87 = Colors.black87;
   static const Color white = Colors.white;
   static const Color black = Colors.black;
+  static const Color transparent = Colors.transparent;
 }

@@ -1,9 +1,11 @@
 import 'package:chatz/screens/auth_screens/sign_in_screen.dart';
 import 'package:chatz/screens/auth_screens/sign_up_screen.dart';
+import 'package:chatz/screens/chat_screen/chat_screen.dart';
 import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
 import 'package:chatz/screens/profile_screen/profile_screen.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
+import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -29,10 +31,14 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
         );
-      // case chatScreen:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const ChatScreen(),
-      //   );
+      case chatScreen:
+        final args = settings.arguments as ChatScreenArguments;
+        return MaterialPageRoute(
+          builder: (context) => ChatScreen(
+            chatUser: args.chatUser,
+            currentUser: args.currentUser,
+          ),
+        );
       case signIncreen:
         return MaterialPageRoute(
           builder: (context) => const SignInScreen(),

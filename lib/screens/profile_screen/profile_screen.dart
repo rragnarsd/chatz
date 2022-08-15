@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:chatz/L10n/l10n.dart';
+import 'package:chatz/provider/img_provider.dart';
 import 'package:chatz/screens/shared/widgets/app_bar.dart';
 import 'package:chatz/screens/shared/widgets/app_bottom_sheet.dart';
 import 'package:chatz/screens/shared/widgets/app_dialog.dart';
@@ -9,14 +11,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
-import 'package:chatz/l10n/l10n.dart';
-import 'package:chatz/provider/locale.dart';
+
+import 'package:chatz/provider/locale_provider.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/services/firebase.dart';
 
@@ -51,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<LocaleNotifier>(context);
+    final provider = Provider.of<LocaleProvider>(context);
     final locale = provider.locale;
     return Scaffold(
       appBar: CustomAppbar(
