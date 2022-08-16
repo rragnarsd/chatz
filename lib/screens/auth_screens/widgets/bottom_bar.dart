@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar_items.dart';
-import 'package:flutter/material.dart';
 
 class AuthBottomBar extends StatelessWidget {
   const AuthBottomBar({

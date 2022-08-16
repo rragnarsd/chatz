@@ -58,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: SafeArea(
         child: StreamBuilder(
-          stream: FirebaseService().getCurrentUserWithStream(),
+          stream: FirebaseService().getCurrentUser(),
           builder: (context, AsyncSnapshot snapshot) {
             var userData = snapshot.data;
             if (snapshot.hasError) {

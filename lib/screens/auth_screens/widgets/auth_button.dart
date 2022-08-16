@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
-import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
   const AuthButton({

@@ -1,10 +1,10 @@
-import 'package:chatz/screens/shared/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:chatz/constants/validations.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
+import 'package:chatz/screens/shared/widgets/text_field.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({

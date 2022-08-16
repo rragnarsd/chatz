@@ -6,11 +6,10 @@ import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
 
+part 'widgets/body.dart';
 part 'widgets/carousel.dart';
 part 'widgets/elevated_btn.dart';
 part 'widgets/landing_carousel.dart';
-
-part 'widgets/body.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);

@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:chatz/constants/validations.dart';
-import 'package:chatz/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chatz/constants/validations.dart';
+import 'package:chatz/models/user_model.dart';
 
 class FirebaseService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -57,7 +58,6 @@ class FirebaseService {
                 .saveUserInfoToFirestore(userName, email, profileImg));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          //TODO
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(Validations().weakPassword),
@@ -98,7 +98,7 @@ class FirebaseService {
 
   //Users
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>>? getCurrentUserWithStream() {
+  Stream<DocumentSnapshot<Map<String, dynamic>>>? getCurrentUser() {
     var userInfo =
         firestore.collection('users').doc(auth.currentUser!.uid).snapshots();
     return userInfo;

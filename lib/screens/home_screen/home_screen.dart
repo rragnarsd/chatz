@@ -1,9 +1,3 @@
-import 'package:chatz/routes/router.dart';
-import 'package:chatz/screens/shared/widgets/app_bar.dart';
-import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
-import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
-import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
-import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +8,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
+import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/home_screen/widgets/home_loading.dart';
+import 'package:chatz/screens/shared/widgets/app_bar.dart';
+import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
+import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
+import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
+import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
 
 part 'widgets/chat_tile.dart';
 part 'widgets/floating_action_btn.dart';
-part 'widgets/list_view_item.dart';
 part 'widgets/list_view_empty.dart';
+part 'widgets/list_view_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -25,7 +25,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        stream: FirebaseService().getCurrentUserWithStream(),
+        stream: FirebaseService().getCurrentUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return AppBarLoading(leading: leading, title: title);
