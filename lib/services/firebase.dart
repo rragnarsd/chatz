@@ -151,9 +151,10 @@ class FirebaseService {
         .snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getChats(String uid) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChats() {
     return firestore
         .collection('chats/${auth.currentUser!.uid}/messages')
+        .where('user_id', isNotEqualTo: auth.currentUser!.uid)
         .snapshots();
   }
 

@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 StreamBuilder(
-                  stream: FirebaseService().getChats(auth.currentUser!.uid),
+                  stream: FirebaseService().getChats(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const HomeLoading();

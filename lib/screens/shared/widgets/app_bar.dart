@@ -87,12 +87,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                         AppLocalizations.of(context)!.xContinue,
                                     function: () {
                                       FirebaseService().signOut().then(
-                                            (value) =>
-                                                Navigator.pushReplacementNamed(
-                                              context,
-                                              AppRouter.landingScreen,
-                                            ),
-                                          );
+                                          (value) =>
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  AppRouter.landingScreen,
+                                                  (route) => false));
                                     },
                                   ),
                                 )
