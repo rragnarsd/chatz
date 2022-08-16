@@ -20,8 +20,9 @@
 - Search functionality
 - Shimmer loading
 
-## :hammer_and_wrench: New Widgets/Stuff that I tried
-- Implementing a chat app
+## :rocket: State Management / Structure
+- Provider
+- Folder by Type
 
 ##  :art: Design
 - The design is inspired by Sulton handaya 
