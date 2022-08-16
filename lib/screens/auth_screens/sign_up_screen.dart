@@ -1,22 +1,19 @@
 import 'dart:io';
 
-import 'package:chatz/provider/img_provider.dart';
-import 'package:chatz/screens/shared/widgets/app_bottom_sheet.dart';
-import 'package:chatz/screens/shared/widgets/text_field.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/validations.dart';
+import 'package:chatz/providers/img_provider.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/auth_screens/widgets/add_image_icon.dart';
 import 'package:chatz/screens/auth_screens/widgets/auth_button.dart';
 import 'package:chatz/screens/auth_screens/widgets/bottom_bar.dart';
+import 'package:chatz/screens/shared/widgets/app_bottom_sheet.dart';
+import 'package:chatz/screens/shared/widgets/text_field.dart';
 import 'package:chatz/services/firebase.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -26,9 +23,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
 
   final Validations validations = Validations();
 

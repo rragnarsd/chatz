@@ -31,43 +31,42 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  var userName = '';
-  var userImg = '';
-  var userUid = '';
+  // var userName = '';
+  // var userImg = '';
+  // var userUid = '';
 
-  Future userInfo(String userId) async {
-    final userInfo = await firestore.collection('users').get();
+  // Future userInfo(String userId) async {
+  //   final userInfo = await firestore.collection('users').get();
 
-    var data = userInfo.docs.map((e) => e.data()['name']).toList();
-    print(data.length);
+  //   var data = userInfo.docs.map((e) => e.data()['name']).toList();
+  //   print(data.length);
 
-    final userChat =
-        firestore.collection('chats/${auth.currentUser!.uid}/messages').get();
+  //   final userChat =
+  //       firestore.collection('chats/${auth.currentUser!.uid}/messages').get();
 
-    print(userChat);
+  //   print(userChat);
 
-    // var name = userInfo.docs[0]['name'];
-    // var imgUrl = userInfo['imgUrl'];
-    // var uid = userInfo.docs[0]['uid'];
+  //   // var name = userInfo.docs[0]['name'];
+  //   // var imgUrl = userInfo['imgUrl'];
+  //   // var uid = userInfo.docs[0]['uid'];
 
-    // final chatInfo =
-    //     await firestore.collection('chats').where(uid, isEqualTo: userId).get();
+  //   // final chatInfo =
+  //   //     await firestore.collection('chats').where(uid, isEqualTo: userId).get();
 
-    // setState(() {
-    //   userUid = name;
-    // });
+  //   // setState(() {
+  //   //   userUid = name;
+  //   // });
 
-    print(userUid);
-  }
+  //   print(userUid);
+  // }
 
-  @override
-  void initState() {
-    userInfo(userUid);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   userInfo(userUid);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

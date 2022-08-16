@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:chatz/constants/validations.dart';
-import 'package:chatz/data/models/user_model.dart';
+import 'package:chatz/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -57,7 +57,7 @@ class FirebaseService {
                 .saveUserInfoToFirestore(userName, email, profileImg));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          //TODO 
+          //TODO
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(Validations().weakPassword),
@@ -98,12 +98,9 @@ class FirebaseService {
 
   //Users
 
-  //TODO
-  Future<DocumentSnapshot<Map<String, dynamic>>> getCurrentUser() {
-    var userInfo = firestore
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+  Stream<DocumentSnapshot<Map<String, dynamic>>>? getCurrentUserWithStream() {
+    var userInfo =
+        firestore.collection('users').doc(auth.currentUser!.uid).snapshots();
     return userInfo;
   }
 

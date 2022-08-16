@@ -1,3 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
@@ -5,15 +11,9 @@ import 'package:chatz/screens/shared/widgets/app_bar.dart';
 import 'package:chatz/screens/shared/widgets/search_box.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-part './widgets/chats_widget.dart';
 part './widgets/chat_rich_text.dart';
+part './widgets/chats_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
@@ -30,7 +30,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   final TextEditingController controller = TextEditingController();

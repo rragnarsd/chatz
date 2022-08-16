@@ -1,9 +1,3 @@
-import 'package:chatz/routes/router.dart';
-import 'package:chatz/screens/shared/widgets/app_bar.dart';
-import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
-import 'package:chatz/screens/shared/widgets/search_box.dart';
-import 'package:chatz/screens/shared/widgets/shimmer_loading.dart';
-import 'package:chatz/services/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +7,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:chatz/constants/colors.dart';
 import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
+import 'package:chatz/routes/router.dart';
+import 'package:chatz/screens/shared/widgets/app_bar.dart';
+import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
+import 'package:chatz/screens/shared/widgets/search_box.dart';
+import 'package:chatz/screens/shared/widgets/shimmer_loading.dart';
+import 'package:chatz/services/firebase.dart';
 
-part 'widgets/search_result.dart';
 part 'widgets/search_loading.dart';
+part 'widgets/search_result.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

@@ -13,9 +13,6 @@ class ImageRow extends StatefulWidget {
 }
 
 class _ImageRowState extends State<ImageRow> {
-  final FirebaseStorage storage = FirebaseStorage.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     File? pickedImage =

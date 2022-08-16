@@ -6,7 +6,6 @@ import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
 import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,20 +24,20 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO - 
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .snapshots(),
+        stream: FirebaseService().getCurrentUserWithStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return AppBarLoading(leading: leading, title: title);
           }
 
+          if (snapshot.data!.data() == null) {
+            return AppBarLoading(leading: leading, title: title);
+          }
+
           if (snapshot.hasData) {
-            var data = snapshot.data!.data();
-            var imgUrl = data!['imgUrl'];
+            var data = snapshot.data;
+            var imgUrl = data?.data()!['imgUrl'];
             return AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
