@@ -33,44 +33,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  // var userName = '';
-  // var userImg = '';
-  // var userUid = '';
-
-  // Future userInfo(String userId) async {
-  //   final userInfo = await firestore.collection('users').get();
-
-  //   var data = userInfo.docs.map((e) => e.data()['name']).toList();
-  //   print(data.length);
-
-  //   final userChat =
-  //       firestore.collection('chats/${auth.currentUser!.uid}/messages').get();
-
-  //   print(userChat);
-
-  //   // var name = userInfo.docs[0]['name'];
-  //   // var imgUrl = userInfo['imgUrl'];
-  //   // var uid = userInfo.docs[0]['uid'];
-
-  //   // final chatInfo =
-  //   //     await firestore.collection('chats').where(uid, isEqualTo: userId).get();
-
-  //   // setState(() {
-  //   //   userUid = name;
-  //   // });
-
-  //   print(userUid);
-  // }
-
-  // @override
-  // void initState() {
-  //   userInfo(userUid);
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: CustomAppbar(
         title: Text(
@@ -122,15 +88,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             Timestamp t = message['createdAt'];
                             DateTime parsedDate = t.toDate();
 
-                            return ListViewItem(
-                                message: message,
-                                auth: auth,
-                                parsedDate: parsedDate,
-                                userName: 'UserName'
+                            return StreamBuilder(
+                              stream:
+                                  FirebaseService().getUser(message['user_id']),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var data = snapshot.data as DocumentSnapshot;
 
-                                // userImg: userImg ??
-                                //     'https://storyset.com/illustration/startled/pana#9FD7B6FF&hide=&hide=complete',
+                                  return ListViewItem(
+                                    data: data,
+                                    message: message,
+                                    auth: auth,
+                                    parsedDate: parsedDate,
+                                  );
+                                }
+                                return const Center(
+                                  child: CircularProgressIndicator(),
                                 );
+                              },
+                            );
                           },
                         ),
                       ),

@@ -25,9 +25,10 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  var searchName = '';
-  final TextEditingController controller = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  final TextEditingController controller = TextEditingController();
+  var searchName = '';
 
   @override
   void dispose() {

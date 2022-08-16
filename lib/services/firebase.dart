@@ -119,6 +119,10 @@ class FirebaseService {
         .get();
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getUser(String path) {
+    return firestore.collection('users').doc(path).snapshots();
+  }
+
   //Chats
 
   Future chat({required String userId, required String msg}) async {

@@ -4,13 +4,13 @@ class ChatTile extends StatelessWidget {
   const ChatTile({
     Key? key,
     required this.name,
-    // required this.img,
+    required this.img,
     required this.message,
     required this.lastMessage,
   }) : super(key: key);
 
   final String name;
-  // final String img;
+  final String img;
   final String message;
   final String lastMessage;
 
@@ -39,12 +39,11 @@ class ChatTile extends StatelessWidget {
             children: [
               Container(
                 height: 40,
-                decoration: UIStyles.tileDecoration,
-                child: const CircleAvatar(
+                decoration: UIStyles.profileDecorationAvatar,
+                child: CircleAvatar(
                   radius: 18,
                   backgroundColor: ConstColors.darkerCyan,
-                  //TODO
-                  // backgroundImage: NetworkImage(img),
+                  backgroundImage: NetworkImage(img),
                 ),
               ),
               const SizedBox(width: 10),

@@ -66,10 +66,13 @@ class ChatsWidget extends StatelessWidget {
                               : MainAxisAlignment.start,
                           children: [
                             if (!currentUser)
-                              CircleAvatar(
-                                radius: 16,
-                                backgroundColor: Colors.grey.shade400,
-                                backgroundImage: NetworkImage(imgUrl),
+                              Container(
+                                decoration: UIStyles.profileDecorationAvatar,
+                                child: CircleAvatar(
+                                  radius: 16,
+                                  backgroundColor: ConstColors.darkerCyan,
+                                  backgroundImage: NetworkImage(imgUrl),
+                                ),
                               ),
                             const SizedBox(width: 10),
                             Column(

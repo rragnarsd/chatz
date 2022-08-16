@@ -3,18 +3,16 @@ part of '../home_screen.dart';
 class ListViewItem extends StatelessWidget {
   const ListViewItem({
     Key? key,
+    required this.data,
     required this.message,
     required this.auth,
     required this.parsedDate,
-    required this.userName,
-    // required this.userImg,
   }) : super(key: key);
 
+  final DocumentSnapshot<Object?> data;
   final QueryDocumentSnapshot<Object?> message;
   final FirebaseAuth auth;
   final DateTime parsedDate;
-  final String userName;
-  // final String userImg;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +23,7 @@ class ListViewItem extends StatelessWidget {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(
-              //TODO
-              '${AppLocalizations.of(context)!.sureToDeleteTheChat} $userName?',
+              '${AppLocalizations.of(context)!.sureToDeleteTheChat} ${data['name']}?',
               style: TextStyles.style14,
             ),
             actions: [
@@ -71,15 +68,16 @@ class ListViewItem extends StatelessWidget {
             arguments: ChatScreenArguments(
               chatUser: message['conversation_id'],
               currentUser: auth.currentUser!.uid,
+              name: data['name'],
+              imgUrl: data['imgUrl'],
             ),
           );
         },
         child: ChatTile(
-          name: userName,
+          name: data['name'],
           lastMessage: Functions().convertToAgo(parsedDate, context),
           message: message['message'],
-          //TODO
-          // img: userImg,
+          img: data['imgUrl'],
         ),
       ),
     );

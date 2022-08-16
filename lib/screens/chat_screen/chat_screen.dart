@@ -16,14 +16,18 @@ part './widgets/chat_rich_text.dart';
 part './widgets/chats_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({
-    Key? key,
-    required this.currentUser,
-    required this.chatUser,
-  }) : super(key: key);
+  const ChatScreen(
+      {Key? key,
+      required this.currentUser,
+      required this.chatUser,
+      required this.imgUrl,
+      required this.name})
+      : super(key: key);
 
   final String currentUser;
   final String chatUser;
+  final String imgUrl;
+  final String name;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -51,9 +55,8 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const FaIcon(FontAwesomeIcons.arrowLeft),
         ),
-        //TODO
-        title: const ChatRichText(
-          userName: 'User',
+        title: ChatRichText(
+          userName: widget.name,
         ),
         withProfile: true,
       ),
@@ -66,8 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ChatsWidget(
                 widget: widget,
                 auth: auth,
-                //TODO
-                imgUrl: '',
+                imgUrl: widget.imgUrl,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),

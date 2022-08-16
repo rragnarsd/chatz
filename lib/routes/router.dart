@@ -37,6 +37,8 @@ class AppRouter {
           builder: (context) => ChatScreen(
             chatUser: args.chatUser,
             currentUser: args.currentUser,
+            name: args.name,
+            imgUrl: args.imgUrl,
           ),
         );
       case signIncreen:

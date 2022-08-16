@@ -27,6 +27,8 @@ class SearchResult extends StatelessWidget {
           arguments: ChatScreenArguments(
             chatUser: chatUser,
             currentUser: auth.currentUser!.uid,
+            name: name,
+            imgUrl: imgUrl,
           ),
         );
       },
