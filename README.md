@@ -43,6 +43,7 @@
 ![Untitled design](https://user-images.githubusercontent.com/44742460/184507347-dc3bd820-1924-4248-808c-920e3e18e4fc.png)
 
 ## Live preview
+https://user-images.githubusercontent.com/44742460/184989251-47a3e8d0-81a2-4dc0-99f1-66fea44a1e61.mp4
 
 ## Getting Started
 
