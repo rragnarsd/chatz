@@ -10,6 +10,7 @@ class Carousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return PageView.builder(
         scrollDirection: Axis.vertical,
         itemCount: images.length,
@@ -17,15 +18,10 @@ class Carousel extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 240,
-                height: double.maxFinite,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(images[index]),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              CarouselImage(
+                size: size,
+                images: images,
+                imgUrl: images[index],
               ),
               Column(
                 children: List.generate(
@@ -46,5 +42,36 @@ class Carousel extends StatelessWidget {
             ],
           );
         });
+  }
+}
+
+class CarouselImage extends StatelessWidget {
+  const CarouselImage({
+    Key? key,
+    required this.size,
+    required this.images,
+    required this.imgUrl,
+  }) : super(key: key);
+
+  final Size size;
+  final List images;
+  final String imgUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: (size.width <= 360)
+          ? size.width * 0.45
+          : (size.width <= 400)
+              ? size.width * 0.53
+              : size.width * 0.55,
+      height: double.maxFinite,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(imgUrl),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

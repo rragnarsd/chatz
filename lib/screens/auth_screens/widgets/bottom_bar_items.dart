@@ -41,7 +41,9 @@ class BottomBarItems extends StatelessWidget {
           height: 40,
           btnColor: ConstColors.lightBlueCyan,
           iconColor: ConstColors.white,
-          icon: const FaIcon(FontAwesomeIcons.arrowRight),
+          icon: const FaIcon(
+            FontAwesomeIcons.arrowRight,
+          ),
           onTapped: () => onTapped(),
         ),
       ]),
