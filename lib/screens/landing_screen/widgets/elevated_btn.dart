@@ -21,7 +21,7 @@ class ElevatedBtn extends StatelessWidget {
       height: 45,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: btnColor,
+          backgroundColor: btnColor,
           shape: RoundedRectangleBorder(
             side: const BorderSide(
               color: ConstColors.black,

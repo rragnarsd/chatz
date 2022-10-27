@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppbar extends StatefulWidget implements PreferredSizeWidget {
   const CustomAppbar({
     Key? key,
     this.leading,
@@ -23,16 +23,32 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final bool? withProfile;
 
   @override
+  State<CustomAppbar> createState() => _CustomAppbarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(55);
+}
+
+class _CustomAppbarState extends State<CustomAppbar> {
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> _profileStream;
+
+  @override
+  void initState() {
+    _profileStream = FirebaseService().getCurrentUser()!;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        stream: FirebaseService().getCurrentUser(),
+        stream: _profileStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return AppBarLoading(leading: leading, title: title);
+            return AppBarLoading(leading: widget.leading, title: widget.title);
           }
 
-          if (snapshot.data!.data() == null) {
-            return AppBarLoading(leading: leading, title: title);
+          if (snapshot.data == null) {
+            return AppBarLoading(leading: widget.leading, title: widget.title);
           }
 
           if (snapshot.hasData) {
@@ -43,12 +59,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: false,
-              leading: leading,
+              leading: widget.leading,
               iconTheme: const IconThemeData(
                 color: ConstColors.black87,
               ),
               actions: [
-                withProfile == true
+                widget.withProfile == true
                     ? InkWell(
                         onTap: () {
                           Navigator.pushNamed(
@@ -104,7 +120,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       )
               ],
-              title: title,
+              title: widget.title,
               titleTextStyle: TextStyles.style16Bold.copyWith(
                 color: ConstColors.black87,
               ),
@@ -115,7 +131,4 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           );
         });
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(55);
 }

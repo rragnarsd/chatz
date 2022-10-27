@@ -29,7 +29,7 @@ class CircleIconBtn extends StatelessWidget {
               color: ConstColors.black,
             ),
           ),
-          primary: btnColor,
+          backgroundColor: btnColor,
         ),
         child: icon,
         onPressed: () => onTapped(),

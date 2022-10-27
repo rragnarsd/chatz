@@ -46,6 +46,10 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
+  void sendMessage(String value) {
+    setState(() => message = value);
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -80,11 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         controller: controller,
                         hintText:
                             '${AppLocalizations.of(context)!.typeMessage}....',
-                        function: (value) {
-                          setState(() {
-                            message = value;
-                          });
-                        },
+                        function: sendMessage,
                       ),
                     ),
                     const SizedBox(width: 15),

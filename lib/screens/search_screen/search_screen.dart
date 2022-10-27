@@ -1,3 +1,4 @@
+import 'package:chatz/models/chat_screen_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:chatz/constants/text_styles.dart';
 import 'package:chatz/constants/ui_styles.dart';
 import 'package:chatz/routes/router.dart';
 import 'package:chatz/screens/shared/widgets/app_bar.dart';
-import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
 import 'package:chatz/screens/shared/widgets/search_box.dart';
 import 'package:chatz/screens/shared/widgets/shimmer_loading.dart';
 import 'package:chatz/services/firebase.dart';
@@ -27,6 +27,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  late Stream<QuerySnapshot> _searchStream;
+
   final TextEditingController controller = TextEditingController();
   var searchName = '';
 
@@ -34,6 +36,12 @@ class _SearchScreenState extends State<SearchScreen> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _searchStream = FirebaseService().getUsers();
+    super.initState();
   }
 
   @override
@@ -75,7 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             StreamBuilder<QuerySnapshot>(
-                stream: FirebaseService().getUsers(),
+                stream: _searchStream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SearchLoading();

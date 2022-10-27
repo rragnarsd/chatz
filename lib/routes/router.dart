@@ -1,3 +1,4 @@
+import 'package:chatz/models/chat_screen_model.dart';
 import 'package:chatz/screens/auth_screens/sign_in_screen.dart';
 import 'package:chatz/screens/auth_screens/sign_up_screen.dart';
 import 'package:chatz/screens/chat_screen/chat_screen.dart';
@@ -5,7 +6,6 @@ import 'package:chatz/screens/home_screen/home_screen.dart';
 import 'package:chatz/screens/landing_screen/landing_screen.dart';
 import 'package:chatz/screens/profile_screen/profile_screen.dart';
 import 'package:chatz/screens/search_screen/search_screen.dart';
-import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {

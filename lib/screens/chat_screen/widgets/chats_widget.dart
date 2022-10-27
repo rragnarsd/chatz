@@ -1,6 +1,6 @@
 part of '../chat_screen.dart';
 
-class ChatsWidget extends StatelessWidget {
+class ChatsWidget extends StatefulWidget {
   const ChatsWidget({
     Key? key,
     required this.widget,
@@ -13,9 +13,22 @@ class ChatsWidget extends StatelessWidget {
   final String imgUrl;
 
   @override
+  State<ChatsWidget> createState() => _ChatsWidgetState();
+}
+
+class _ChatsWidgetState extends State<ChatsWidget> {
+  late Stream<QuerySnapshot<Map<String, dynamic>>> _stream;
+
+  @override
+  void initState() {
+    _stream = FirebaseService().getChat(widget.widget.chatUser);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseService().getChat(widget.chatUser),
+        stream: _stream,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Expanded(
@@ -49,7 +62,7 @@ class ChatsWidget extends StatelessWidget {
                     if (snapshot.hasData) {
                       final message = snapshot.data!.docs[index];
                       var currentUser =
-                          message['user_id'] == auth.currentUser!.uid;
+                          message['user_id'] == widget.auth.currentUser!.uid;
 
                       Timestamp t = message['createdAt'];
                       DateTime parsedDate = t.toDate();
@@ -71,7 +84,7 @@ class ChatsWidget extends StatelessWidget {
                                 child: CircleAvatar(
                                   radius: 16,
                                   backgroundColor: ConstColors.darkerCyan,
-                                  backgroundImage: NetworkImage(imgUrl),
+                                  backgroundImage: NetworkImage(widget.imgUrl),
                                 ),
                               ),
                             const SizedBox(width: 10),

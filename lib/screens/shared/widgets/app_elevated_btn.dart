@@ -17,7 +17,7 @@ class AppElevatedBtn extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         side: const BorderSide(width: 1),
-        primary: ConstColors.redOrange,
+        backgroundColor: ConstColors.redOrange,
       ),
       onPressed: () => function(),
       child: Text(

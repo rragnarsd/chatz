@@ -1,3 +1,4 @@
+import 'package:chatz/models/chat_screen_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:chatz/screens/home_screen/widgets/home_loading.dart';
 import 'package:chatz/screens/shared/widgets/app_bar.dart';
 import 'package:chatz/screens/shared/widgets/app_elevated_btn.dart';
 import 'package:chatz/screens/shared/widgets/app_outline_btn.dart';
-import 'package:chatz/screens/shared/widgets/chat_screen_arguments.dart';
 import 'package:chatz/screens/shared/widgets/circle_icon_btn.dart';
 import 'package:chatz/services/firebase.dart';
 import 'package:chatz/utils/functions.dart';
@@ -69,48 +69,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const HomeLoading();
                     }
 
-                    if (snapshot.data!.docs.isEmpty) {
-                      return const ListViewEmpty();
-                    }
+                    if (snapshot.hasData) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: size.height * 0.75,
+                          width: size.width * 0.9,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 20),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              var message = snapshot.data!.docs[index];
+                              Timestamp t = message['createdAt'];
+                              DateTime parsedDate = t.toDate();
 
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: size.height * 0.75,
-                        width: size.width * 0.9,
-                        child: ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 20),
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            var message = snapshot.data!.docs[index];
-                            Timestamp t = message['createdAt'];
-                            DateTime parsedDate = t.toDate();
+                              return StreamBuilder(
+                                stream: FirebaseService()
+                                    .getUser(message['user_id']),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    var data =
+                                        snapshot.data as DocumentSnapshot;
 
-                            return StreamBuilder(
-                              stream:
-                                  FirebaseService().getUser(message['user_id']),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  var data = snapshot.data as DocumentSnapshot;
-
-                                  return ListViewItem(
-                                    data: data,
-                                    message: message,
-                                    auth: auth,
-                                    parsedDate: parsedDate,
+                                    return ListViewItem(
+                                      data: data,
+                                      message: message,
+                                      auth: auth,
+                                      parsedDate: parsedDate,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
                                   );
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
-                            );
-                          },
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
+                    return const Center(child: Text('Currently No Chats'));
                   },
                 )
               ],
